@@ -19,7 +19,7 @@ cat("## Tabs {.tabset .tabset-fade .tabset-pills}", "\n")
 for (estates in filtered_list){
     cat("###", estates, "\n")
     cat("\n\n\n")
-    cat("This is where the map will go ")
+    cat("This is where the map will go OR IS IT!!! ")
     
 # generate leaflet plot (doesn't even show white space if not stored in tagList)
     page <- htmltools::tagList(
