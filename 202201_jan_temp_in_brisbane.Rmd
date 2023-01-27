@@ -1,0 +1,87 @@
+---
+title: "January (3-25) Temperatures in Brisbane"
+author: "Kyle Haynes"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+library(ztable)
+library(magrittr)
+library(plotly)
+
+options(ztable.type = "html")
+```
+
+Data sourced from:
+
+* http://www.bom.gov.au
+* Maximum daily temperatures
+* Station: Brisbane (040913)
+
+```{r echo=FALSE, cache = TRUE, }
+library(rvest)
+library(data.table)
+library(ztable)
+
+year <- 2012:2023
+
+dt <- data.table(day = 3:25)
+
+path <- "c:/temp/weather.rds"
+
+if(file.exists(path)){
+    dt <- readRDS(path)
+} else {
+    for(i in year){
+        Sys.sleep(1)
+        url <- paste0("http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_nccObsCode=122&p_display_type=dailyDataFile&p_startYear=",i,"&p_c=-334769424&p_stn_num=040913")
+
+        d <- read_html(url) %>%
+            html_nodes('table') %>%
+            html_table(fill = TRUE) %>%
+            .[[1]]
+        setDT(d)
+        d <- d[-1]
+        d <- d[3:25, "Jan"]
+        setnames(d, paste0("Jan-", i))
+        dt <- cbind(dt, d)
+    }
+    saveRDS(dt, path)
+}
+
+sum <- data.table()
+for(i in names(dt)){
+    # browser()
+    if(i == "day") next
+    sum <- rbind(sum, data.table(date = i, mean = mean(dt[[i]], na.rm = T), median = median(dt[[i]], na.rm = T), minimum = min(dt[[i]], na.rm = T), maximum = max(dt[[i]], na.rm = T)))
+}
+
+
+fig <- plot_ly(sum, x = ~date, y = ~mean, name = 'mean', type = 'scatter', mode = 'lines+markers') 
+fig <- fig %>% add_trace(y = ~median, name = 'Median', mode = 'lines') 
+fig <- fig %>% add_trace(y = ~minimum, name = 'Minimum', mode = 'markers') 
+fig <- fig %>% add_trace(y = ~maximum, name = 'Maximum', mode = 'markers')
+fig <- fig %>% layout(title = "Figure 1. January 2012-2023",
+         xaxis = list(title = "Year"),
+         yaxis = list (title = "Temperature (degrees C)"))
+
+
+```
+
+
+```{r results='asis', echo = FALSE}
+ztable(sum) %>% print(caption="Table 1. Summary statistics (January 3-25, 2012-2022)")
+# colMeans(x=dt, na.rm = TRUE)
+
+x <- data.frame(dt[, -1])
+row.names(x) <- 3:25
+options(ztable.type="html")
+
+ztable(x) %>% makeHeatmap() %>% print(caption="Table 2. Heatmap of maximum daily temperatures (January 3-25, 2012-2022)")
+
+fig
+```
