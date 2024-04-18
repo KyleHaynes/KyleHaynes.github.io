@@ -2,7 +2,7 @@
 title: "qutro example"
 ---
 
-This is a Quarto website. Hello
+This is a Quarto website. Hello again.
 
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
