@@ -6,3 +6,15 @@ This is a Quarto website. Hello again.
 
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+
+
+```{r}
+head(iris)
+require(data.table)
+
+
+d <- data.table(iris)
+
+head(d)
+
+```
