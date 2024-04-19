@@ -18,6 +18,7 @@ We can quite easily observe the commonality of this accross brisbane ...
 # install.packages("rmapshaper")
 # install.packages("leaflet")
 # install.packages("rgeos")
+# install.packages("plotly")
 
 # Restore our r environment.
 renv::restore(prompt = F)
@@ -27,6 +28,7 @@ library(sf)             # For reading Shape files.
 library(rgeos)          # For reducing Shape files.
 library(leaflet)        # Plotting Shape files.
 library(data.table)     # For data.tables.
+library(plotly)         # For plotsY.
 
 # Define a regex pattern of word-bounded Royal female and males names.
 royal_female <- "\\b(Adelaide|Cordelia|countess|Cordeilla|Ann|Queen|Victoria|Mary|Louise|Alexandra|Elizabeth|Alice|Margaret|Charlotte|Augusta|Helena|Maud|Agnes|Helene|Caroline|Olga|Louisa|Diana)\\b"
@@ -76,14 +78,17 @@ if(F){
 # Define the input path to our shapefile.
 shapefile <- st_read("./inputs/queens_n_queens.shp")
  
+# Create a colour column that allows us to differential between female and male.
+shapefile$color <- fifelse(shapefile$ROAD_NAME_ %ilike% royal_female, "red", "blue")
+# And gender
+shapefile$gender <- fifelse(shapefile$ROAD_NAME_ %ilike% royal_female, "Female", "Male")
+
 # Coerce to a data.table.
 dt <- data.table(shapefile)
 
 # Inspect frequencies.
 dt[, .N, ROAD_NAME_][order(-N)]
 
-# Create a colour column that allows us to differential between female and male.
-shapefile$color <- fifelse(shapefile$ROAD_NAME_ %ilike% royal_female, "red", "blue")
 
 # Create a leaflet map.
     # - We'll use a minimilist base map.
@@ -113,4 +118,21 @@ We can zoom in to the CBD to highlight what I was talking about earlier.
 ```{r}
 map %>%
   setView(lng = "153.0255184", lat = "-27.4687535", zoom = 15)
+```
+
+
+We can also calculate the lengths of each of the streets ...
+
+```{r}
+dt[, street_length := st_length(shapefile)]
+dt
+
+# Calculate cumulative length by gender.
+gen <- dt[, .(cumulative_length = sum(street_length)), by = gender]
+
+# Plot the cumulative lengths for both genders
+plot_ly(gen, x = ~gender, y = ~cumulative_length, type = 'bar', marker = list(color = c("pink", "#ADD8E6"))) %>%
+  layout(title = "Sum of Males and Females",
+         xaxis = list(title = "Gender"),
+         yaxis = list(title = "Count"))
 ```
