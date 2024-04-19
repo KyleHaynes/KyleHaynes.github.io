@@ -1,11 +1,68 @@
 ---
-title: "qutro example"
+title: "Kyle Haynes: Curriculum Vitae"
+format:
+  html:
+    toc: true
+  pdf:
+    author: Kyle Haynes
+    pdf-engine: weasyprint
+css: cv.css
+format-links: [pdf]
 ---
 
-This is a Quarto website. Hello again.
+::: {.print-only .contact-block}
+kyle@kylehaynes.com.au
+:::
+
+```{r}
+# require(weasydoc)
+```
+
+## EDUCATION
+
+**Doctor of Philosophy -- Econometrics and Business Statistics** <br> *Monash University* [*Aug 2021 --- Present*]{.cvdate}
+
+-   New principles and methods for complex data preparation and integration, with applications to official statistics, web-scrapped data and satellite raster images
+-   Monash Data Futures Institute PhD Top-Up Scholarship (2021-2024)
+-   Expected submission date: Nov 2024
+
+## WORK EXPERIENCE{style="page-break-before: always"}
+
+### Senior Statistician, A06
+
+***Queensland Government Statisticians Office (QGSO): Data Integration*** [Jan 2020 -- Present]{.cvdate}
+
+Update Update Update.
+
+-   Update
 
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+### Statistician, A05
+
+***QGSO: Statistical Collection Intergarion & Analysis*** [Jan 2020 -- Present]{.cvdate}
+
+Update Update.
+
+### Statistician, A04
+
+***QGSO: Statistical Collection Intergarion & Analysis*** [Jan 2020 -- Present]{.cvdate}
+
+Update Update.
+
+
+::: {.no-print}
+## PRESENTATIONS AND WORKSHOPS
+
+-   Talk: [Misadventures with Reproducibility in R](https://github.com/cynthiahqy/rladies-2022-11) (30 Nov 2022, R Ladies Melbourne Meetup)
+-   Talk: [Designing R Packages](https://github.com/cynthiahqy/design-r-magic_2022-10) (4 Oct 2022, Monash EBS Data Science Research Software Study Group)
+-   Talk: [Quarto Websites as Research Compendiums](https://github.com/cynthiahqy/quarto-wiki-template) (16 Aug 2022, Monash EBS Data Science Research Software Study Group)
+-   Workshop: [Writing academic papers with Rmarkdown and friends](https://www.cynthiahqy.com/posts/r-markdown-and-friends/) (9 Aug 2022, Monash University)
+:::
+
+::: {.print-only}
+## References
+Available upon request
+:::
 
 
 ```{r}
@@ -17,4 +74,12 @@ d <- data.table(iris)
 
 head(d)
 
+
+
 ```
+
+asdas 
+
+<details>
+asdas
+</details>

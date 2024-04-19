@@ -1,11 +1,15 @@
 {
   "index.qmd": {
-    "index.html": "13bf15b7"
+    "index.html": "13bf15b7",
+    "index.pdf": "c5d21c12"
   },
   "about.qmd": {
     "about.html": "5e86b893"
   },
   "blah.qmd": {
     "blah.html": "323d3a14"
+  },
+  "attributions.qmd": {
+    "attributions.html": "66f6c146"
   }
 }
