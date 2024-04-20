@@ -114,25 +114,30 @@ map <-  leaflet() %>%
 map
 ```
 
-We can zoom in to the CBD to highlight what I was talking about earlier.
+We can zoom in to the CBD to highlight the directions by gender:
+
 ```{r}
 map %>%
   setView(lng = "153.0255184", lat = "-27.4687535", zoom = 15)
 ```
 
+<br><br>
 
 We can also calculate the lengths of each of the streets ...
 
 ```{r}
+# Calculate length/distance.
 dt[, street_length := st_length(shapefile)]
-dt
+
+# Inspect.
+dt[, .(ROAD_NAME_, street_length)]
 
 # Calculate cumulative length by gender.
 gen <- dt[, .(cumulative_length = sum(street_length)), by = gender]
 
-# Plot the cumulative lengths for both genders
+# Plot the cumulative lengths for both genders.
 plot_ly(gen, x = ~gender, y = ~cumulative_length, type = 'bar', marker = list(color = c("pink", "#ADD8E6"))) %>%
-  layout(title = "Sum of Males and Females",
+  layout(title = "Distance by Males and Females",
          xaxis = list(title = "Gender"),
-         yaxis = list(title = "Count"))
+         yaxis = list(title = "Distance"))
 ```

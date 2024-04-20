@@ -14,18 +14,15 @@ format-links: [pdf]
 kyle@kylehaynes.com.au
 :::
 
-```{r}
-require(rmarkdown)
-
-```
 
 ## EDUCATION
 
-**Doctor of Philosophy -- Econometrics and Business Statistics** <br> *Monash University* [*Aug 2021 --- Present*]{.cvdate}
+**Doctor of Philosophy -- ** <br> *Griffith University* [*Aug 2021 --- Present*]{.cvdate}
 
--   New principles and methods for complex data preparation and integration, with applications to official statistics, web-scrapped data and satellite raster images
--   Monash Data Futures Institute PhD Top-Up Scholarship (2021-2024)
--   Expected submission date: Nov 2024
+-   dot point
+-   dot point
+-   dot point
+
 
 ## WORK EXPERIENCE{style="page-break-before: always"}
 
@@ -36,7 +33,6 @@ require(rmarkdown)
 Update Update Update.
 
 -   Update
-
 
 ### Statistician, A05
 
@@ -52,12 +48,19 @@ Update Update. asdas
 
 
 ::: {.no-print}
-## PRESENTATIONS AND WORKSHOPS
+## TECHNICAL SKILLSETS
 
--   Talk: [Misadventures with Reproducibility in R](https://github.com/cynthiahqy/rladies-2022-11) (30 Nov 2022, R Ladies Melbourne Meetup)
--   Talk: [Designing R Packages](https://github.com/cynthiahqy/design-r-magic_2022-10) (4 Oct 2022, Monash EBS Data Science Research Software Study Group)
--   Talk: [Quarto Websites as Research Compendiums](https://github.com/cynthiahqy/quarto-wiki-template) (16 Aug 2022, Monash EBS Data Science Research Software Study Group)
--   Workshop: [Writing academic papers with Rmarkdown and friends](https://www.cynthiahqy.com/posts/r-markdown-and-friends/) (9 Aug 2022, Monash University)
+-   R: 10+ years experience coding daily in R.
+    - Heavy involvment in transioning QGSO from SAS to R.
+    -   RShiny: High level of und
+    +   Shiny: 
+    +   RMarkdown:
+    +   Base R/ data.table
+    +   Package development
+-   Git / Gitlab / Github: High level of understanding
+-   SQL
+-   HTML/Javascript
+-   SAS
 :::
 
 

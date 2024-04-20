@@ -10,9 +10,19 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - text: projects
+        menu:
+          - text: 2024-04, Royal Street Names in Brisbane City
+            href: blah.qmd
+          - text: Report a Bug
+            url:  https://bugs.com
     right:
-      - href: blah.qmd
-
+      - icon: github
+        menu:
+          - text: Source Code
+            url:  https://github.com/KyleHaynes/KyleHaynes.github.io
+          - text: Report a Bug
+            url:  https://github.com/KyleHaynes/KyleHaynes.github.io/issues
 format:
   html:
     theme: cosmo
