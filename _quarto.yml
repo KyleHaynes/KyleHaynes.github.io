@@ -10,7 +10,7 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
-      - text: projects
+      - text: Projects
         menu:
           - text: 2024-04, Royal Street Names in Brisbane City
             href: blah.qmd
