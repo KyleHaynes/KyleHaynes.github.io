@@ -15,7 +15,8 @@ kyle@kylehaynes.com.au
 :::
 
 ```{r}
-# require(weasydoc)
+require(rmarkdown)
+
 ```
 
 ## EDUCATION
@@ -47,7 +48,7 @@ Update Update.
 
 ***QGSO: Statistical Collection Intergarion & Analysis*** [Jan 2020 -- Present]{.cvdate}
 
-Update Update.
+Update Update. asdas
 
 
 ::: {.no-print}
@@ -58,6 +59,7 @@ Update Update.
 -   Talk: [Quarto Websites as Research Compendiums](https://github.com/cynthiahqy/quarto-wiki-template) (16 Aug 2022, Monash EBS Data Science Research Software Study Group)
 -   Workshop: [Writing academic papers with Rmarkdown and friends](https://www.cynthiahqy.com/posts/r-markdown-and-friends/) (9 Aug 2022, Monash University)
 :::
+
 
 ::: {.print-only}
 ## References
