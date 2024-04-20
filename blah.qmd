@@ -2,11 +2,11 @@
 title: "Royal Street Names in Brisbane City"
 ---
 
-Have you ever noticed the prevelance of Royal street names within Australia?
+Have you ever noticed the prevalence of Royal street names within Australia?
 
 Living in Brisbane CBD, it's certainly quite known that female Royal street names run in one direction and males the other.
 
-We can quite easily observe the commonality of this accross brisbane ...
+We can quite easily observe the commonality of this across Brisbane ...
 
 
 <details><summary>Project setup</summary>
