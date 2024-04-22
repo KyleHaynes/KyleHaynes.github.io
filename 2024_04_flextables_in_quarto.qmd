@@ -1,5 +1,6 @@
 ---
 title: "Flextables in Quarto"
+
 ---
 
 Flextable is a really nice and customisable R Package for outputting tables.
