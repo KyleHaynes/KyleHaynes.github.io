@@ -1,0 +1,253 @@
+---
+title: "Royal Street Names in Brisbane City"
+---
+
+
+Have you ever noticed the prevalence of Royal street names within Australia?
+
+Living in Brisbane CBD, it's certainly quite known that female Royal street names run in one direction and males the other.
+
+We can quite easily observe the commonality of this across Brisbane ...
+
+
+<details><summary>Project setup</summary>
+
+```{r}
+#| warning: false
+#| output: false
+
+# install.packages("sf")
+# install.packages("rmapshaper")
+# install.packages("leaflet")
+# install.packages("rgeos")
+# install.packages("plotly")
+
+# Restore our r environment.
+renv::restore(prompt = F)
+
+# Load required packages.
+library(sf)             # For reading Shape files.
+library(rgeos)          # For reducing Shape files.
+library(leaflet)        # Plotting Shape files.
+library(data.table)     # For data.tables.
+library(plotly)         # For plotsY.
+
+# Define a regex pattern of word-bounded Royal female and males names.
+royal_female <- "\\b(Adelaide|Cordelia|countess|Cordeilla|Ann|Queen|Victoria|Mary|Louise|Alexandra|Elizabeth|Alice|Margaret|Charlotte|Augusta|Helena|Maud|Agnes|Helene|Caroline|Olga|Louisa|Diana)\\b"
+royal_male <- "\\b(Albert|George|Charles|Edward|earl|Christian|Frederick|Louis|Arthur|William|Henry|Alexander|John|Philip|Douglas|Ernest|Patrick|Friederike|Auguste|Francis|David|Augustus|Antony)\\b"
+
+regex_holden   <- "statesman|holden|calais|commodore|kingswood"
+regex_art      <- "Angelico|Gainsborough|Picasso|Michelangelo|Botticelli|Rubens|Van Dyc|Vermeer|Matisse|Raphael|Drysdale|Delacroix|Rembrand|michelangel|Ruisdael|da vinci|van go|\\bhart\\b"
+regex_space    <- "\\(bursa|balsa)\\b|andromeda|taurus|capricorn|crater|\\blibra\\b|Voyager|shuttle|galaxy|gemini|constell|lunar|asteroid|saturn|eclipse|halleys|apollo|Capella|orbit"
+regex_trees    <- "cypress|poplar|yulan|blackthorn|japonica|rosemary|berrigan|lavender|magnolia|poinciana|frangipani|jarah|hydrangea|zalea|iris\\b|viloet|orchid|applegum|silky *oak|ironbark|mahogany|arbour|fiddlewood|bottlebrush|Wisteria|coachwood|sandalwood|wattle|waratah|cedar|fig tree|eucalypt|river.*gum|\\boak\\b"
+regex_wine     <- "Champagne|Marsala|Claret|Frontignac|Sherry|Burgundy|Cabernet|Riesling|Tintara|Yaldara"
+regex_birds    <- "kingfisher|quail|swallow|seagul|resella|nightingale|pelican|cockatoo|robin|lorikeet|fantail|\\bdove\\b|lyrebird|lotusbird|madder|orangetip|shelduck|\\bswan\\b"
+regex_celebs   <- "Brando|Jagger|hoffman|macnee|dicaprio|monroe|van dyke|streisand|culkin|cosby|hanks|minnelli|pfeiffer|de vito|thurman"
+regex_ordinals <- "first|second|third|fourth|fifth|sixth|seventh"
+regex_first_f  <- "cook|daniel|carl|whitby|eagle|solander|pembroke|endeavour|botany|walker|banks|hodges|magdalena|carl"
+```
+
+</details>
+
+<details>
+
+
+```{r}
+if(F){
+    # Read the shapefile
+    shapefile_orig <- st_read("C:\\temp\\QSC_Extracted_Data\\QSC_Extracted_Data_20240418_144922083000-53700\\Queensland_roads_and_tracks.shp")
+
+
+
+
+    themes <- shapefile_orig[
+        shapefile_orig$ROAD_NAME_ %ilike% paste(
+            regex_holden, 
+            regex_art, 
+            regex_space, 
+            regex_trees, 
+            regex_wine,
+            regex_birds,
+            regex_celebs,
+            regex_ordinals,
+            regex_first_f,
+            sep = "|"),]
+
+    st_write(themes, "./inputs/themes.shp")
+
+    # We're only interested in Brisbane City and of the below road class types.
+    shapefile <- shapefile_orig[
+        shapefile$LGA_NAME_R == "Brisbane City"
+    , ]
+    shapefile <- shapefile[shapefile$ROAD_NAME_ %ilike% royal_female | shapefile$ROAD_NAME_ %ilike% royal_male, ]
+
+    dt <- data.table(shapefile)
+
+    View(dt[, .N, ROAD_NAME_][order(-N)])
+
+
+    remove <- "Saint Helena|Mary Ellen| HOLT |CHRISTIAN COL|M MAC|OUTREACH|E ANNE L|FARRIOR|WILLIAM FAR| LESLIE |TONGE|JOHN FRAN|JOHN FINN|SAINT GEOR|JOHN FISH| GOD |SAINT|BISHOP|JOHN BRI|ISLEY| ULM |ARTHUR GO|SIR DA|GASKIN|SIRETT|JOLLY|COOKMAN|E PAGE"
+
+    shapefile <- shapefile[!shapefile$ROAD_NAME_ %ilike% remove, ]
+
+    dt <- data.table(shapefile)
+
+    View(dt[, .N, ROAD_NAME_][order(-N)])
+
+
+    st_write(shapefile, "./inputs/queens_n_queens.shp")
+
+    head(shapefile)
+    }
+```
+
+</details>
+
+
+```{r}
+#| warning: false
+#| output: false
+
+# Define the input path to our shapefile.
+shapefile <- st_read("./inputs/queens_n_queens.shp")
+ 
+# Create a colour column that allows us to differential between female and male.
+shapefile$color <- fifelse(shapefile$ROAD_NAME_ %ilike% royal_female, "red", "blue")
+# And gender
+shapefile$gender <- fifelse(shapefile$ROAD_NAME_ %ilike% royal_female, "Female", "Male")
+
+# Coerce to a data.table.
+dt <- data.table(shapefile)
+
+# Inspect frequencies.
+dt[, .N, ROAD_NAME_][order(-N)]
+
+
+# Create a leaflet map.
+    # - We'll use a minimilist base map.
+    # - Add the polylines from the shapefile and allow for street name popups.
+    # - Add coloured lines.
+map <-  leaflet() %>%
+    addProviderTiles(providers$CartoDB.Positron) %>%
+    addPolylines(
+        data = shapefile,
+        color = ~color,
+        weight = 3,
+        popup = ~ROAD_NAME_
+    ) %>%
+    addLegend(
+        colors = c("red", "blue"),
+        labels = c("Female names", "Male names"),
+        position = "bottomright"
+    )
+```
+
+```{r}
+# Display the map.
+map
+```
+
+
+We can zoom in to the CBD to highlight the directions by gender:
+
+
+```{r}
+map %>%
+  setView(lng = "153.0255184", lat = "-27.4687535", zoom = 15)
+```
+
+
+<br><br>
+
+We can also calculate the lengths of each of the streets ...
+
+
+```{r}
+# Calculate length/distance.
+dt[, street_length := st_length(shapefile)]
+
+# Inspect.
+dt[, .(ROAD_NAME_, street_length)]
+
+# Calculate cumulative length by gender.
+gen <- dt[, .(cumulative_length = sum(street_length)), by = gender]
+
+# Plot the cumulative lengths for both genders.
+plot_ly(gen, x = ~gender, y = ~cumulative_length, type = 'bar', marker = list(color = c("pink", "#ADD8E6"))) %>%
+  layout(title = "Distance by Gender",
+         xaxis = list(title = "Gender"),
+         yaxis = list(title = "Distance"))
+```
+
+
+
+## Themed Streets
+
+
+
+```{r}
+# Import themed streets.
+shapefile <- st_read("./inputs/themes.shp")
+
+# Colour them.
+# Create a named vector.
+vec <- c(
+    "blue" = "Holden",
+    "orange" = "Artists",
+    "purple" = "Space",
+    "#0db7dc" = "Wine Region",
+    "green" = "Flora",
+    "#1abc9c" = "Birds",
+    "#22847a" = "Celebs",
+    "black" = "Ordinals"
+)
+
+shapefile$color <- fcase(
+    shapefile$ROAD_NAME_ %ilike% regex_holden,  names(vec)[1],
+    shapefile$ROAD_NAME_ %ilike% regex_art,     names(vec)[2],
+    shapefile$ROAD_NAME_ %ilike% regex_space,   names(vec)[3],
+    shapefile$ROAD_NAME_ %ilike% regex_wine,    names(vec)[4],
+    shapefile$ROAD_NAME_ %ilike% regex_trees,   names(vec)[5],
+    shapefile$ROAD_NAME_ %ilike% regex_birds,   names(vec)[6],
+    shapefile$ROAD_NAME_ %ilike% regex_celebs,  names(vec)[7],
+    shapefile$ROAD_NAME_ %ilike% regex_first_f, names(vec)[8]
+)
+
+
+# And gender
+
+map <- leaflet() %>%
+    addProviderTiles(providers$CartoDB.Positron) %>%
+    addPolylines(
+        data = shapefile[],
+        color = ~color,
+        weight = 3,
+        popup = ~ROAD_NAME_
+    ) %>%
+    addLegend(
+        colors = names(vec),
+        labels = vec,
+        position = "bottomright"
+    )
+
+### Holden Streets: Sunnybank Hills
+
+map %>%
+  setView(lng = "153.0411963", lat = "-27.5953411", zoom = 17)
+
+
+
+### Artists & Trees: Mackenzie
+
+map %>%
+  setView(lng = "153.1252209", lat = "-27.5418537", zoom = 16)
+
+
+### Wine Region: Carseldine
+
+map %>%
+  setView(lng = "153.0068839", lat = "-27.3517528", zoom = 16)
+
+
+
+```

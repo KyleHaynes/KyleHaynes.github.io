@@ -7,6 +7,7 @@ Flextable is a really nice and customisable R Package for outputting tables.
 The following is an attempt to replicate the following tables produced here: https://www.qgso.qld.gov.au/statistics/theme/crime-justice/crime-justice-statistics/recorded-crime
 
 ```{r}
+#| warning: false
 # Install required packages.
 # install.packages("flextable")
 # install.packages("magrittr")
