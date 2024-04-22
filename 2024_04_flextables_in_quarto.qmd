@@ -1,0 +1,188 @@
+---
+title: "Flextables in Quarto"
+---
+
+Flextable is a really nice and customisable R Package for outputting tables.
+
+The following is an attempt to replicate the following tables produced here: https://www.qgso.qld.gov.au/statistics/theme/crime-justice/crime-justice-statistics/recorded-crime
+
+```{r}
+# Install required packages.
+# install.packages("flextable")
+# install.packages("magrittr")
+# install.packages("data.table")
+
+# Load required packages.
+library(flextable)
+library(magrittr)
+library(data.table)
+
+# Data...
+d <- fread("Unlawful entry,40251,42170,35681,-15.4,796.8,821.2,683.9,-16.7
+    Unlawful entry with intent - dwelling,24548,25048,22344,-10.8,485.9,487.8,428.3,-12.2
+    Without violence,23849,24348,21641,-11.1,472.1,474.2,414.8,-12.5
+    With violence,699,700,703,0.4,13.8,13.6,13.5,-1.2
+    Unlawful entry with intent - shop,2053,2400,2240,-6.7,40.6,46.7,42.9,-8.1
+    Unlawful entry with intent - other,13650,14722,11097,-24.6,270.2,286.7,212.7,-25.8
+    Arson,1287,1430,1169,-18.3,25.5,27.8,22.4,-19.5
+    Other property damage,36689,36348,33282,-8.4,726.3,707.8,637.9,-9.9
+    Unlawful use of motor vehicle,14940,15975,14900,-6.7,295.7,311.1,285.6,-8.2
+    Other theft,129960,130790,103179,-21.1,2572.6,2547.0,1977.6,-22.4
+    Stealing from dwellings,8832,9044,6816,-24.6,174.8,176.1,130.6,-25.8
+    Shop stealing,26380,27825,20818,-25.2,522.2,541.9,399.0,-26.4
+    Vehicles,32890,33168,25041,-24.5,651.1,645.9,480.0,-25.7
+    Other stealing,61858,60753,50504,-16.9,1224.5,1183.1,968.0,-18.2
+    Fraud,28994,30431,23424,-23.0,574.0,592.6,449.0,-24.2
+    Fraud by computer,771,1312,885,-32.5,15.3,25.5,17.0,-33.6
+    Fraud by cheque,121,116,74,-36.2,2.4,2.3,1.4,-37.2
+    Fraud by credit card,14628,14443,11272,-22.0,289.6,281.3,216.0,-23.2
+    Identity fraud,2238,2446,1961,-19.8,44.3,47.6,37.6,-21.1
+    Other fraud,11236,12114,9232,-23.8,222.4,235.9,176.9,-25.0
+    Handling stolen goods,6657,7684,5181,-32.6,131.8,149.6,99.3,-33.6
+    Possess property suspected stolen,3006,3346,2044,-38.9,59.5,65.2,39.2,-39.9
+    Receiving stolen property,445,440,273,-38.0,8.8,8.6,5.2,-38.9
+    Possess etc. tainted property,3134,3816,2805,-26.5,62.0,74.3,53.8,-27.7
+    Other handling stolen goods,72,82,59,-28.0,1.4,1.6,1.1,-29.2
+    Total,258778,264828,216816,-18.1,5122.6,5157.3,4155.7,-19.4"
+)
+
+# Update column names.
+setnames(d, c("category", "num_18", "num_19", "num_20", 
+    "year_change_per", "rate_18", "rate_19", "rate_20", 
+    "rate_year_change_per"
+    )
+)
+
+# Define some default colours.
+main_head_col <- "#DEC3A3"
+sub_head_col <- "#E8D2BA"
+primary_cat <- "#eeddcc"
+secondary_cat <- "#f5efe5"
+total_row_col <- main_head_col
+highlight_col <- "#BE955B"
+
+
+# Create the header.
+header <- data.table(
+    col_keys = names(d),
+    line2 = c("Offences against property", rep("Offences reported", 4), rep("Offences reported per 100,000 persons", 4)),
+    line3 = c("Offences against property", "2018-19", "2019-20 ", "2020-21 ", "1-yr change 2019-20 to 2020-21", "2018-19 (for pre-COVID comparison)", "2019-20(a) ", "2020-21 ", "1-yr change 2019-20 to 2020-21") ,
+    line4 = c("Offence", rep("- Number -", 2), rep("%", 2), rep("- Rate - ", 2), rep("%", 2))
+)
+# Inspect.
+header
+
+# Define the Main categories.
+main_cats <- c("Unlawful entry",
+    "Arson",
+    "Other property damage",
+    "Unlawful use of motor vehicle",
+    "Other theft",
+    "Fraud",
+    "Handling stolen goods"
+)
+
+# Define the theme design functions.
+theme_design <- function(x) {
+    x <- border_remove(x)
+
+    second_last_row <- d$category
+    second_last_row <- rep(FALSE, length(second_last_row))
+    second_last_row[which(d$category %in% "Total") - 1] <- TRUE
+
+    total_row <- d$category == "Total"
+    third_sub <- d$category %in% c("Without violence", "With violence")
+    italic_column <- names(d) %in% c("num_18", "rate_18")
+
+    std_border <- fp_border_default(width = 2, color = "white")
+    x <- fontsize(x, size = 10, part = "header")
+    x <- fontsize(x, size = 9, part = "body")
+    x <- font(x, fontname = "Arial", part = "all")
+    x <- align(x, align = "center", part = "all")
+    x <- align(x, align = "right", part = "body")
+    x <- bold(x, bold = TRUE, part = "all")
+    x <- italic(x, j = italic_column, italic = TRUE, part = "body")
+    x <- italic(x, i = third_sub, italic = TRUE, part = "body")
+    x <- bg(x, bg = primary_cat, part = "body")
+    x <- bg(x, bg = main_head_col, part = "header")
+    x <- bg(x, bg = highlight_col, part = "footer")
+    x <- color(x, color = "black", part = "all")
+    x <- padding(x, padding = 2, part = "all")
+    x <- border_outer(x, part = "all", border = std_border)
+    x <- border_inner_h(x, border = std_border, part = "header")
+    x <- border_inner_v(x, border = std_border, part = "all")
+    x <- hline(x, i = second_last_row, border = std_border, part = "body")
+    x <- set_table_properties(x, layout = "fixed")
+    x <- width(x, j = 1, width = 4.5, unit = "cm")
+    x <- align(x, i = NULL, j = 1, align = "left", part = "body")
+    x <- align(x, i = NULL, j = 1, align = "left", part = "header")
+    x <- colformat_num(
+        x,
+        big.mark = ",", decimal.mark = ".",
+        na_str = "N/A"
+    )
+    x <- bg(x, i = fifelse(d$category %in% main_cats, FALSE, TRUE), bg = secondary_cat, part = "body")
+    x <- bg(x, i = total_row, bg = total_row_col, part = "body")
+    x <- padding(
+        x,
+        j = 1,
+        padding = NULL,
+        padding.top = NULL,
+        padding.bottom = NULL,
+        padding.left = 5,
+        padding.right = NULL,
+        part = "all"
+    )
+    x <- padding(
+        x,
+        i = fifelse(d$category %in% main_cats | total_row, FALSE, TRUE),
+        j = 1,
+        padding = NULL,
+        padding.top = NULL,
+        padding.bottom = NULL,
+        padding.left = 12,
+        padding.right = NULL,
+        part = "body"
+    )
+    x <- padding(
+        x,
+        i = third_sub,
+        j = 1,
+        padding = NULL,
+        padding.top = NULL,
+        padding.bottom = NULL,
+        padding.left = 17,
+        padding.right = NULL,
+        part = "body"
+    )
+    x <- bold(x, i = fifelse(d$category %in% main_cats | total_row, FALSE, TRUE), bold = FALSE, part = "body")
+    x
+}
+
+# Create the flextable.
+ft <- flextable(d, col_keys = header$col_keys)
+
+# Update flextable and apply the function.
+ft <- set_header_df(ft, mapping = header, key = "col_keys") %>%
+    merge_v(part = "header", j = 1) %>%
+    merge_h(part = "header", i = 1) %>%
+    merge_h(part = "header", i = 3) %>%
+    theme_design()
+
+# Compose the flextable.
+ft <- compose(
+    ft,
+    j = "num_18",
+    part = "header",
+    value = as_paragraph(
+        "2018-19",
+        as_chunk(
+            " (for pre-COVID comparison)",
+            props = fp_text_default(color = "#006699", font.size = 5)
+        )
+    )
+)
+
+# Display the flextable.
+ft
+```
