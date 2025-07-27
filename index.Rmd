@@ -1,0 +1,23 @@
+---
+title: "My GitHub Website"
+output: html_document
+---
+
+# Welcome to My Website
+
+This is my personal website built with R Markdown and hosted on GitHub Pages.
+
+## About Me
+
+Write something about yourself here.
+
+## Projects
+
+- Project 1
+- Project 2
+- Project 3
+
+## Contact
+
+- Email: your.email@example.com
+- GitHub: [your-username](https://github.com/your-username)

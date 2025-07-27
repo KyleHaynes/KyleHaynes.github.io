@@ -1,0 +1,7 @@
+---
+title: "About"
+---
+
+# About Me
+
+More detailed information about yourself.
