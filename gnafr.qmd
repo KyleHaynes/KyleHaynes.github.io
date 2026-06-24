@@ -1,0 +1,125 @@
+---
+title: "gnafr: Fast Australian Address Matching"
+---
+
+[`gnafr`](https://github.com/KyleHaynes/anthropic_address/tree/main/gnafr) is an R
+package for fuzzy-matching messy, free-text address strings against the
+[Geocoded National Address File (GNAF)](https://geoscape.com.au/data/g-naf/) —
+Australia's authoritative address dataset. It's built for bulk workloads
+(100k+ addresses in a single call), backed by an embedded [DuckDB](https://duckdb.org/)
+database, with a transparent 0–100 confidence score per match.
+
+- **Bulk matching** — vectorised, scores entirely inside DuckDB
+- **Fuzzy matching** — handles abbreviations, typos, missing fields, messy real-world strings
+- **Confidence scoring** — postcode, suburb, street name/type, number and flat all scored independently
+- **Custom addresses** — add your own records and match against them alongside GNAF
+- **Primary/secondary & alias awareness** — distinguishes a main dwelling from its sub-dwellings, and alias addresses from their principal record
+
+This page is a short, self-contained walkthrough using a handful of made-up
+records — it isn't connected to a live database, so you can read it without
+downloading anything. See the
+[README](https://github.com/KyleHaynes/anthropic_address/tree/main/gnafr) for
+full installation and usage instructions.
+
+## Installation
+
+```r
+install.packages(c("data.table", "DBI", "duckdb", "stringdist"))
+devtools::install_local("gnafr")
+```
+
+## A minimal example
+
+GNAF Core ships as a CSV with one row per address. For this walkthrough,
+here's a tiny made-up dataset in that format — four addresses on two
+fictional streets in "Sampleton QLD". Note the two units at 12 Example
+Street: each is flagged `SECONDARY` and points back to its parent record via
+`PRIMARY_PID`, which is exactly how GNAF distinguishes a main dwelling from
+its sub-dwellings.
+
+```r
+library(data.table)
+
+dummy_gnaf <- data.table(
+  ADDRESS_DETAIL_PID = c("GA_DUMMY_0001", "GA_DUMMY_0002", "GA_DUMMY_0003", "GA_DUMMY_0004"),
+  ADDRESS_LABEL       = c("10 EXAMPLE STREET, SAMPLETON QLD 4999",
+                          "12 EXAMPLE STREET, SAMPLETON QLD 4999",
+                          "UNIT 1 12 EXAMPLE STREET, SAMPLETON QLD 4999",
+                          "5 DEMO COURT, SAMPLETON QLD 4999"),
+  FLAT_TYPE           = c(NA, NA, "UNIT", NA),
+  FLAT_NUMBER         = c(NA, NA, "1", NA),
+  NUMBER_FIRST        = c(10, 12, 12, 5),
+  STREET_NAME         = c("EXAMPLE", "EXAMPLE", "EXAMPLE", "DEMO"),
+  STREET_TYPE         = c("STREET", "STREET", "STREET", "COURT"),
+  LOCALITY_NAME       = "SAMPLETON",
+  STATE               = "QLD",
+  POSTCODE            = 4999,
+  PRIMARY_SECONDARY   = c("PRIMARY", "PRIMARY", "SECONDARY", "PRIMARY"),
+  PRIMARY_PID         = c(NA, NA, "GA_DUMMY_0002", NA),
+  LONGITUDE           = c(152.001, 152.002, 152.002, 152.010),
+  LATITUDE            = c(-27.001, -27.002, -27.002, -27.010)
+)
+
+fwrite(dummy_gnaf, "dummy_gnaf_core.csv")
+```
+
+Load it into a fresh `gnafr` database the same way you would a real GNAF
+Core download — `gnaf_load()` reads the CSV directly with DuckDB, so it
+never has to be pulled into R memory:
+
+```r
+library(gnafr)
+
+con <- gnaf_connect(":memory:")
+gnaf_init(con)
+gnaf_load(con, "dummy_gnaf_core.csv")
+#> Loading: dummy_gnaf_core.csv
+#> Done: dummy_gnaf_core.csv
+#> Total GNAF addresses in database: 4
+```
+
+Now match a messy, free-text input against it:
+
+```r
+gnaf_match(
+  c("unit 1 12 example st sampleton 4999", "10 example street sampleton qld 4999"),
+  con,
+  max_results = 1
+)
+```
+
+```
+ input_id                          input_raw match_rank total_score                                   address_label primary_secondary   primary_pid
+        1 unit 1 12 example st sampleton 4999          1          96   UNIT 1 12 EXAMPLE STREET, SAMPLETON QLD 4999         SECONDARY GA_DUMMY_0002
+        2 10 example street sampleton qld 4999         1         100      10 EXAMPLE STREET, SAMPLETON QLD 4999            PRIMARY              NA
+```
+
+Despite the input dropping "QLD", abbreviating "STREET" to "ST", and missing
+the comma, both rows still resolve to the right record — and the result
+carries `primary_secondary` / `primary_pid` straight through, so you can tell
+at a glance that the first match is a sub-dwelling of `GA_DUMMY_0002` without
+a second lookup.
+
+## Adding your own addresses
+
+Records that aren't in GNAF (a new development, a PO box, an internal site
+code) can be added to a separate `custom_addresses` table and are matched
+against transparently alongside GNAF:
+
+```r
+gnaf_add(con, data.table(
+  number_first  = 7,
+  street_name   = "DEMO",
+  street_type   = "COURT",
+  locality_name = "SAMPLETON",
+  state         = "QLD",
+  postcode      = 4999
+))
+
+gnaf_match("7 demo court sampleton qld 4999", con, max_results = 1)
+```
+
+## Learn more
+
+- [Full README](https://github.com/KyleHaynes/anthropic_address/tree/main/gnafr) — installation, scoring internals, bulk matching, troubleshooting
+- [Source code](https://github.com/KyleHaynes/anthropic_address/tree/main/gnafr)
