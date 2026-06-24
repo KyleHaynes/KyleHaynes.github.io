@@ -1,0 +1,31 @@
+project:
+  type: website
+  output-dir: docs
+  execute-dir: project
+
+website:
+  title: "Kyle Haynes"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - hello-world.qmd
+      - text: Projects
+        menu:
+          - text: 2024-04, Royal Street Names in Brisbane City
+            href: 2024_04_kings_and_queens.qmd
+          - text: 2024-04, Flextables in Quarto
+            href: 2024_04_flextables_in_quarto.qmd
+    right:
+      - icon: github
+        menu:
+          - text: Source Code
+            url:  https://github.com/KyleHaynes/KyleHaynes.github.io
+          - text: Report a Bug
+            url:  https://github.com/KyleHaynes/KyleHaynes.github.io/issues
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true

@@ -1,6 +1,0 @@
----
-title: "My Data Analysis Project"
-date: 2025-07-27
----
-
-Write your post content here.
