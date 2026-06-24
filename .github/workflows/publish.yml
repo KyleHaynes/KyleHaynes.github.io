@@ -25,7 +25,14 @@ jobs:
       - name: Install system dependencies for sf/terra/units
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgdal-dev libgeos-dev libproj-dev libudunits2-dev
+          sudo apt-get install -y libgdal-dev libgeos-dev libproj-dev libudunits2-dev \
+            libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info
+
+      # index.qmd renders a PDF with pdf-engine: weasyprint.
+      - name: Install weasyprint
+        run: |
+          pip install --user weasyprint
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Install R Dependencies
         uses: r-lib/actions/setup-renv@v2
