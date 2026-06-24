@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About – Kyle Haynes</title>
+<title>gnafr: Fast Australian Address Matching – Kyle Haynes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -97,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
@@ -153,15 +188,24 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#a-minimal-example" id="toc-a-minimal-example" class="nav-link" data-scroll-target="#a-minimal-example">A minimal example</a></li>
+  <li><a href="#adding-your-own-addresses" id="toc-adding-your-own-addresses" class="nav-link" data-scroll-target="#adding-your-own-addresses">Adding your own addresses</a></li>
+  <li><a href="#learn-more" id="toc-learn-more" class="nav-link" data-scroll-target="#learn-more">Learn more</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">gnafr: Fast Australian Address Matching</h1>
 </div>
 
 
@@ -178,9 +222,89 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>About this site</p>
+<p><a href="https://github.com/KyleHaynes/anthropic_address/tree/main/gnafr"><code>gnafr</code></a> is an R package for fuzzy-matching messy, free-text address strings against the <a href="https://geoscape.com.au/data/g-naf/">Geocoded National Address File (GNAF)</a> — Australia’s authoritative address dataset. It’s built for bulk workloads (100k+ addresses in a single call), backed by an embedded <a href="https://duckdb.org/">DuckDB</a> database, with a transparent 0–100 confidence score per match.</p>
+<ul>
+<li><strong>Bulk matching</strong> — vectorised, scores entirely inside DuckDB</li>
+<li><strong>Fuzzy matching</strong> — handles abbreviations, typos, missing fields, messy real-world strings</li>
+<li><strong>Confidence scoring</strong> — postcode, suburb, street name/type, number and flat all scored independently</li>
+<li><strong>Custom addresses</strong> — add your own records and match against them alongside GNAF</li>
+<li><strong>Primary/secondary &amp; alias awareness</strong> — distinguishes a main dwelling from its sub-dwellings, and alias addresses from their principal record</li>
+</ul>
+<p>This page is a short, self-contained walkthrough using a handful of made-up records — it isn’t connected to a live database, so you can read it without downloading anything. See the <a href="https://github.com/KyleHaynes/anthropic_address/tree/main/gnafr">README</a> for full installation and usage instructions.</p>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"data.table"</span>, <span class="st">"DBI"</span>, <span class="st">"duckdb"</span>, <span class="st">"stringdist"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_local</span>(<span class="st">"gnafr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="a-minimal-example" class="level2">
+<h2 class="anchored" data-anchor-id="a-minimal-example">A minimal example</h2>
+<p>GNAF Core ships as a CSV with one row per address. For this walkthrough, here’s a tiny made-up dataset in that format — four addresses on two fictional streets in “Sampleton QLD”. Note the two units at 12 Example Street: each is flagged <code>SECONDARY</code> and points back to its parent record via <code>PRIMARY_PID</code>, which is exactly how GNAF distinguishes a main dwelling from its sub-dwellings.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dummy_gnaf <span class="ot">&lt;-</span> <span class="fu">data.table</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ADDRESS_DETAIL_PID =</span> <span class="fu">c</span>(<span class="st">"GA_DUMMY_0001"</span>, <span class="st">"GA_DUMMY_0002"</span>, <span class="st">"GA_DUMMY_0003"</span>, <span class="st">"GA_DUMMY_0004"</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ADDRESS_LABEL       =</span> <span class="fu">c</span>(<span class="st">"10 EXAMPLE STREET, SAMPLETON QLD 4999"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"12 EXAMPLE STREET, SAMPLETON QLD 4999"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"UNIT 1 12 EXAMPLE STREET, SAMPLETON QLD 4999"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"5 DEMO COURT, SAMPLETON QLD 4999"</span>),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">FLAT_TYPE           =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"UNIT"</span>, <span class="cn">NA</span>),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">FLAT_NUMBER         =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"1"</span>, <span class="cn">NA</span>),</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">NUMBER_FIRST        =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">5</span>),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">STREET_NAME         =</span> <span class="fu">c</span>(<span class="st">"EXAMPLE"</span>, <span class="st">"EXAMPLE"</span>, <span class="st">"EXAMPLE"</span>, <span class="st">"DEMO"</span>),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">STREET_TYPE         =</span> <span class="fu">c</span>(<span class="st">"STREET"</span>, <span class="st">"STREET"</span>, <span class="st">"STREET"</span>, <span class="st">"COURT"</span>),</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">LOCALITY_NAME       =</span> <span class="st">"SAMPLETON"</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">STATE               =</span> <span class="st">"QLD"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">POSTCODE            =</span> <span class="dv">4999</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">PRIMARY_SECONDARY   =</span> <span class="fu">c</span>(<span class="st">"PRIMARY"</span>, <span class="st">"PRIMARY"</span>, <span class="st">"SECONDARY"</span>, <span class="st">"PRIMARY"</span>),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">PRIMARY_PID         =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"GA_DUMMY_0002"</span>, <span class="cn">NA</span>),</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">LONGITUDE           =</span> <span class="fu">c</span>(<span class="fl">152.001</span>, <span class="fl">152.002</span>, <span class="fl">152.002</span>, <span class="fl">152.010</span>),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">LATITUDE            =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">27.001</span>, <span class="sc">-</span><span class="fl">27.002</span>, <span class="sc">-</span><span class="fl">27.002</span>, <span class="sc">-</span><span class="fl">27.010</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">fwrite</span>(dummy_gnaf, <span class="st">"dummy_gnaf_core.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Load it into a fresh <code>gnafr</code> database the same way you would a real GNAF Core download — <code>gnaf_load()</code> reads the CSV directly with DuckDB, so it never has to be pulled into R memory:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gnafr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">gnaf_connect</span>(<span class="st">":memory:"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gnaf_init</span>(con)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gnaf_load</span>(con, <span class="st">"dummy_gnaf_core.csv"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading: dummy_gnaf_core.csv</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Done: dummy_gnaf_core.csv</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Total GNAF addresses in database: 4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now match a messy, free-text input against it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gnaf_match</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"unit 1 12 example st sampleton 4999"</span>, <span class="st">"10 example street sampleton qld 4999"</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  con,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_results =</span> <span class="dv">1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code> input_id                          input_raw match_rank total_score                                   address_label primary_secondary   primary_pid
+        1 unit 1 12 example st sampleton 4999          1          96   UNIT 1 12 EXAMPLE STREET, SAMPLETON QLD 4999         SECONDARY GA_DUMMY_0002
+        2 10 example street sampleton qld 4999         1         100      10 EXAMPLE STREET, SAMPLETON QLD 4999            PRIMARY              NA</code></pre>
+<p>Despite the input dropping “QLD”, abbreviating “STREET” to “ST”, and missing the comma, both rows still resolve to the right record — and the result carries <code>primary_secondary</code> / <code>primary_pid</code> straight through, so you can tell at a glance that the first match is a sub-dwelling of <code>GA_DUMMY_0002</code> without a second lookup.</p>
+</section>
+<section id="adding-your-own-addresses" class="level2">
+<h2 class="anchored" data-anchor-id="adding-your-own-addresses">Adding your own addresses</h2>
+<p>Records that aren’t in GNAF (a new development, a PO box, an internal site code) can be added to a separate <code>custom_addresses</code> table and are matched against transparently alongside GNAF:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gnaf_add</span>(con, <span class="fu">data.table</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">number_first  =</span> <span class="dv">7</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">street_name   =</span> <span class="st">"DEMO"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">street_type   =</span> <span class="st">"COURT"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">locality_name =</span> <span class="st">"SAMPLETON"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">state         =</span> <span class="st">"QLD"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">postcode      =</span> <span class="dv">4999</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">gnaf_match</span>(<span class="st">"7 demo court sampleton qld 4999"</span>, con, <span class="at">max_results =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="learn-more" class="level2">
+<h2 class="anchored" data-anchor-id="learn-more">Learn more</h2>
+<ul>
+<li><a href="https://github.com/KyleHaynes/anthropic_address/tree/main/gnafr">Full README</a> — installation, scoring internals, bulk matching, troubleshooting</li>
+<li><a href="https://github.com/KyleHaynes/anthropic_address/tree/main/gnafr">Source code</a></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
