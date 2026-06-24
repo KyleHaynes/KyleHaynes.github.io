@@ -32,6 +32,11 @@ jobs:
         with:
           cache-version: 1
 
+      # flextable is used in 2024_04_flextables_in_quarto.qmd but was never
+      # captured in renv.lock (run renv::snapshot() locally to fix properly).
+      - name: Install flextable
+        run: Rscript -e 'install.packages("flextable")'
+
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
