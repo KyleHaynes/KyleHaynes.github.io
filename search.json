@@ -2,37 +2,30 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Kyle Haynes: Curriculum Vitae",
+    "title": "Kyle Haynes",
     "section": "",
-    "text": "kyle@kylehaynes.com.au\nhead(iris)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          5.1         3.5          1.4         0.2  setosa\n2          4.9         3.0          1.4         0.2  setosa\n3          4.7         3.2          1.3         0.2  setosa\n4          4.6         3.1          1.5         0.2  setosa\n5          5.0         3.6          1.4         0.2  setosa\n6          5.4         3.9          1.7         0.4  setosa\n\nrequire(data.table)\n\nLoading required package: data.table\n\nd &lt;- data.table(iris)\n\nhead(d)\n\n   Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n          &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;  &lt;fctr&gt;\n1:          5.1         3.5          1.4         0.2  setosa\n2:          4.9         3.0          1.4         0.2  setosa\n3:          4.7         3.2          1.3         0.2  setosa\n4:          4.6         3.1          1.5         0.2  setosa\n5:          5.0         3.6          1.4         0.2  setosa\n6:          5.4         3.9          1.7         0.4  setosa\nasdas"
+    "text": "Hi — this site is a small portfolio of work in R, spatial analysis, and address matching.\n\n\n\ngnafr — active package for fuzzy matching Australian address text.\nfast.string — string processing utilities and tools.\n\n\n\n\n\nAbout\nGNAFR overview\nRoyal Street Names in Brisbane City\nFlextables in Quarto\nHello world demo\n\n\n\n\nThis site is maintained in Quarto and published to GitHub Pages from the docs/ folder. The interactive app content has been removed so the site stays focused on published Quarto pages.\n```\nasdas\n\nasdas"
   },
   {
-    "objectID": "index.html#education",
-    "href": "index.html#education",
-    "title": "Kyle Haynes: Curriculum Vitae",
-    "section": "EDUCATION",
-    "text": "EDUCATION\nDoctor of Philosophy –   Griffith University Aug 2021 — Present\n\ndot point\ndot point\ndot point"
+    "objectID": "index.html#active-projects",
+    "href": "index.html#active-projects",
+    "title": "Kyle Haynes",
+    "section": "",
+    "text": "gnafr — active package for fuzzy matching Australian address text.\nfast.string — string processing utilities and tools."
   },
   {
-    "objectID": "index.html#work-experience",
-    "href": "index.html#work-experience",
-    "title": "Kyle Haynes: Curriculum Vitae",
-    "section": "WORK EXPERIENCE",
-    "text": "WORK EXPERIENCE\n\nSenior Statistician, A06\nQueensland Government Statisticians Office (QGSO): Data Integration Jan 2020 – Present\nUpdate Update Update.\n\nUpdate\n\n\n\nStatistician, A05\nQGSO: Statistical Collection Intergarion & Analysis Jan 2020 – Present\nUpdate Update.\n\n\nStatistician, A04\nQGSO: Statistical Collection Intergarion & Analysis Jan 2020 – Present\nUpdate Update. asdas"
+    "objectID": "index.html#explore-this-site",
+    "href": "index.html#explore-this-site",
+    "title": "Kyle Haynes",
+    "section": "",
+    "text": "About\nGNAFR overview\nRoyal Street Names in Brisbane City\nFlextables in Quarto\nHello world demo"
   },
   {
-    "objectID": "index.html#technical-skillsets",
-    "href": "index.html#technical-skillsets",
-    "title": "Kyle Haynes: Curriculum Vitae",
-    "section": "TECHNICAL SKILLSETS",
-    "text": "TECHNICAL SKILLSETS\n\nR: 10+ years experience coding daily in R.\n\nHeavy involvment in transioning QGSO from SAS to R.\nRShiny: High level of und\nShiny:\nRMarkdown:\nBase R/ data.table\nPackage development\n\nGit / Gitlab / Github: High level of understanding\nSQL\nHTML/Javascript\nSAS"
-  },
-  {
-    "objectID": "index.html#references",
-    "href": "index.html#references",
-    "title": "Kyle Haynes: Curriculum Vitae",
-    "section": "References",
-    "text": "References\nAvailable upon request"
+    "objectID": "index.html#notes",
+    "href": "index.html#notes",
+    "title": "Kyle Haynes",
+    "section": "",
+    "text": "This site is maintained in Quarto and published to GitHub Pages from the docs/ folder. The interactive app content has been removed so the site stays focused on published Quarto pages.\n```\nasdas\n\nasdas"
   },
   {
     "objectID": "about.html",
@@ -40,20 +33,6 @@
     "title": "About",
     "section": "",
     "text": "About this site"
-  },
-  {
-    "objectID": "attributions.html",
-    "href": "attributions.html",
-    "title": "Kyle Haynes",
-    "section": "",
-    "text": "CV idea from: https://www.cynthiahqy.com/posts/cv-html-pdf/"
-  },
-  {
-    "objectID": "hello-world.html",
-    "href": "hello-world.html",
-    "title": "Hello, World!",
-    "section": "",
-    "text": "Hello, World! This is a very basic Quarto report, published to GitHub Pages."
   },
   {
     "objectID": "2024_04_kings_and_queens.html",
@@ -68,41 +47,6 @@
     "title": "Royal Street Names in Brisbane City",
     "section": "Themed Streets",
     "text": "Themed Streets\n\n# Import themed streets.\nshapefile &lt;- st_read(\"./inputs/themes.shp\")\n\nReading layer `themes' from data source \n  `/home/runner/work/KyleHaynes.github.io/KyleHaynes.github.io/inputs/themes.shp' \n  using driver `ESRI Shapefile'\nSimple feature collection with 10005 features and 48 fields\nGeometry type: LINESTRING\nDimension:     XY\nBounding box:  xmin: 138.5856 ymin: -28.85879 xmax: 153.5363 ymax: -9.952433\nGeodetic CRS:  GDA94\n\n# Colour them.\n# Create a named vector.\nvec &lt;- c(\n    \"blue\" = \"Holden\",\n    \"orange\" = \"Artists\",\n    \"purple\" = \"Space\",\n    \"#0db7dc\" = \"Wine Region\",\n    \"green\" = \"Flora\",\n    \"#1abc9c\" = \"Birds\",\n    \"#22847a\" = \"Celebs\",\n    \"black\" = \"Ordinals\"\n)\n\nshapefile$color &lt;- fcase(\n    shapefile$ROAD_NAME_ %ilike% regex_holden,  names(vec)[1],\n    shapefile$ROAD_NAME_ %ilike% regex_art,     names(vec)[2],\n    shapefile$ROAD_NAME_ %ilike% regex_space,   names(vec)[3],\n    shapefile$ROAD_NAME_ %ilike% regex_wine,    names(vec)[4],\n    shapefile$ROAD_NAME_ %ilike% regex_trees,   names(vec)[5],\n    shapefile$ROAD_NAME_ %ilike% regex_birds,   names(vec)[6],\n    shapefile$ROAD_NAME_ %ilike% regex_celebs,  names(vec)[7],\n    shapefile$ROAD_NAME_ %ilike% regex_first_f, names(vec)[8]\n)\n\n\n# And gender\n\nmap &lt;- leaflet() %&gt;%\n    addProviderTiles(providers$CartoDB.Positron) %&gt;%\n    addPolylines(\n        data = shapefile[],\n        color = ~color,\n        weight = 3,\n        popup = ~ROAD_NAME_\n    ) %&gt;%\n    addLegend(\n        colors = names(vec),\n        labels = vec,\n        position = \"bottomright\"\n    )\n\nWarning: sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +no_defs).\nNeed '+proj=longlat +datum=WGS84'\n\n### Holden Streets: Sunnybank Hills\n\nmap %&gt;%\n  setView(lng = \"153.0411963\", lat = \"-27.5953411\", zoom = 17)\n\n\n\n\n### Artists & Trees: Mackenzie\n\nmap %&gt;%\n  setView(lng = \"153.1252209\", lat = \"-27.5418537\", zoom = 16)\n\n\n\n\n### Wine Region: Carseldine\n\nmap %&gt;%\n  setView(lng = \"153.0068839\", lat = \"-27.3517528\", zoom = 16)"
-  },
-  {
-    "objectID": "gnafr.html",
-    "href": "gnafr.html",
-    "title": "gnafr: Fast Australian Address Matching",
-    "section": "",
-    "text": "gnafr is an R package for fuzzy-matching messy, free-text address strings against the Geocoded National Address File (GNAF) — Australia’s authoritative address dataset. It’s built for bulk workloads (100k+ addresses in a single call), backed by an embedded DuckDB database, with a transparent 0–100 confidence score per match.\nThis page is a short, self-contained walkthrough using a handful of made-up records — it isn’t connected to a live database, so you can read it without downloading anything. See the README for full installation and usage instructions."
-  },
-  {
-    "objectID": "gnafr.html#installation",
-    "href": "gnafr.html#installation",
-    "title": "gnafr: Fast Australian Address Matching",
-    "section": "Installation",
-    "text": "Installation\ninstall.packages(c(\"data.table\", \"DBI\", \"duckdb\", \"stringdist\"))\ndevtools::install_local(\"gnafr\")"
-  },
-  {
-    "objectID": "gnafr.html#a-minimal-example",
-    "href": "gnafr.html#a-minimal-example",
-    "title": "gnafr: Fast Australian Address Matching",
-    "section": "A minimal example",
-    "text": "A minimal example\nGNAF Core ships as a CSV with one row per address. For this walkthrough, here’s a tiny made-up dataset in that format — four addresses on two fictional streets in “Sampleton QLD”. Note the two units at 12 Example Street: each is flagged SECONDARY and points back to its parent record via PRIMARY_PID, which is exactly how GNAF distinguishes a main dwelling from its sub-dwellings.\nlibrary(data.table)\n\ndummy_gnaf &lt;- data.table(\n  ADDRESS_DETAIL_PID = c(\"GA_DUMMY_0001\", \"GA_DUMMY_0002\", \"GA_DUMMY_0003\", \"GA_DUMMY_0004\"),\n  ADDRESS_LABEL       = c(\"10 EXAMPLE STREET, SAMPLETON QLD 4999\",\n                          \"12 EXAMPLE STREET, SAMPLETON QLD 4999\",\n                          \"UNIT 1 12 EXAMPLE STREET, SAMPLETON QLD 4999\",\n                          \"5 DEMO COURT, SAMPLETON QLD 4999\"),\n  FLAT_TYPE           = c(NA, NA, \"UNIT\", NA),\n  FLAT_NUMBER         = c(NA, NA, \"1\", NA),\n  NUMBER_FIRST        = c(10, 12, 12, 5),\n  STREET_NAME         = c(\"EXAMPLE\", \"EXAMPLE\", \"EXAMPLE\", \"DEMO\"),\n  STREET_TYPE         = c(\"STREET\", \"STREET\", \"STREET\", \"COURT\"),\n  LOCALITY_NAME       = \"SAMPLETON\",\n  STATE               = \"QLD\",\n  POSTCODE            = 4999,\n  PRIMARY_SECONDARY   = c(\"PRIMARY\", \"PRIMARY\", \"SECONDARY\", \"PRIMARY\"),\n  PRIMARY_PID         = c(NA, NA, \"GA_DUMMY_0002\", NA),\n  LONGITUDE           = c(152.001, 152.002, 152.002, 152.010),\n  LATITUDE            = c(-27.001, -27.002, -27.002, -27.010)\n)\n\nfwrite(dummy_gnaf, \"dummy_gnaf_core.csv\")\nLoad it into a fresh gnafr database the same way you would a real GNAF Core download — gnaf_load() reads the CSV directly with DuckDB, so it never has to be pulled into R memory:\nlibrary(gnafr)\n\ncon &lt;- gnaf_connect(\":memory:\")\ngnaf_init(con)\ngnaf_load(con, \"dummy_gnaf_core.csv\")\n#&gt; Loading: dummy_gnaf_core.csv\n#&gt; Done: dummy_gnaf_core.csv\n#&gt; Total GNAF addresses in database: 4\nNow match a messy, free-text input against it:\ngnaf_match(\n  c(\"unit 1 12 example st sampleton 4999\", \"10 example street sampleton qld 4999\"),\n  con,\n  max_results = 1\n)\n input_id                          input_raw match_rank total_score                                   address_label primary_secondary   primary_pid\n        1 unit 1 12 example st sampleton 4999          1          96   UNIT 1 12 EXAMPLE STREET, SAMPLETON QLD 4999         SECONDARY GA_DUMMY_0002\n        2 10 example street sampleton qld 4999         1         100      10 EXAMPLE STREET, SAMPLETON QLD 4999            PRIMARY              NA\nDespite the input dropping “QLD”, abbreviating “STREET” to “ST”, and missing the comma, both rows still resolve to the right record — and the result carries primary_secondary / primary_pid straight through, so you can tell at a glance that the first match is a sub-dwelling of GA_DUMMY_0002 without a second lookup."
-  },
-  {
-    "objectID": "gnafr.html#adding-your-own-addresses",
-    "href": "gnafr.html#adding-your-own-addresses",
-    "title": "gnafr: Fast Australian Address Matching",
-    "section": "Adding your own addresses",
-    "text": "Adding your own addresses\nRecords that aren’t in GNAF (a new development, a PO box, an internal site code) can be added to a separate custom_addresses table and are matched against transparently alongside GNAF:\ngnaf_add(con, data.table(\n  number_first  = 7,\n  street_name   = \"DEMO\",\n  street_type   = \"COURT\",\n  locality_name = \"SAMPLETON\",\n  state         = \"QLD\",\n  postcode      = 4999\n))\n\ngnaf_match(\"7 demo court sampleton qld 4999\", con, max_results = 1)"
-  },
-  {
-    "objectID": "gnafr.html#learn-more",
-    "href": "gnafr.html#learn-more",
-    "title": "gnafr: Fast Australian Address Matching",
-    "section": "Learn more",
-    "text": "Learn more\n\nFull README — installation, scoring internals, bulk matching, troubleshooting\nSource code"
   },
   {
     "objectID": "2024_04_flextables_in_quarto.html",
