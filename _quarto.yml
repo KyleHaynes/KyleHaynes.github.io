@@ -19,6 +19,10 @@ website:
             href: 2024_04_flextables_in_quarto.qmd
           - text: gnafr, Fast Australian Address Matching
             href: gnafr.qmd
+          - text: gnafr site
+            url: https://kylehaynes.github.io/gnafr/
+          - text: fast.string site
+            url: https://kylehaynes.github.io/fast.string/
     right:
       - icon: github
         menu:

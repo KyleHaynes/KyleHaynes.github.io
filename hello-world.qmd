@@ -1,5 +1,0 @@
----
-title: "Hello, World!"
----
-
-Hello, World! This is a very basic Quarto report, published to GitHub Pages.
