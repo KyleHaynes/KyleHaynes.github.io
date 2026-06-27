@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Kyle Haynes - Flextables in Quarto</title>
+<title>Flextables in Quarto – Kyle Haynes</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -64,15 +68,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -109,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -121,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -134,8 +139,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">hello-world.qmd</span>
+    </span>
+  </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Projects</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
@@ -147,12 +157,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./2024_04_flextables_in_quarto.html">
  <span class="dropdown-text">2024-04, Flextables in Quarto</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./gnafr.qmd">
+ <span class="dropdown-text">gnafr, Fast Australian Address Matching</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://kylehaynes.github.io/gnafr/">
+ <span class="dropdown-text">gnafr site</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://kylehaynes.github.io/fast.string/">
+ <span class="dropdown-text">fast.string site</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
       <i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span>
@@ -170,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -179,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
         
     </div>
 <!-- main -->
@@ -207,7 +229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Flextable is a really nice and customisable R Package for outputting tables.</p>
 <p>The following is an attempt to replicate the following tables produced here: https://www.qgso.qld.gov.au/statistics/theme/crime-justice/crime-justice-statistics/recorded-crime</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install required packages.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install required packages.</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("flextable")</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("magrittr")</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("data.table")</span></span>
@@ -270,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">line4 =</span> <span class="fu">c</span>(<span class="st">"Offence"</span>, <span class="fu">rep</span>(<span class="st">"- Number -"</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="st">"%"</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="st">"- Rate - "</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="st">"%"</span>, <span class="dv">2</span>))</span>
 <span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect.</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>header</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>header</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               col_keys                                 line2
                  &lt;char&gt;                                &lt;char&gt;
@@ -295,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 8:                           2020-21           %
 9:     1-yr change 2019-20 to 2020-21          %</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the Main categories.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the Main categories.</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>main_cats <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Unlawful entry"</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Arson"</span>,</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Other property damage"</span>,</span>
@@ -407,9 +429,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the flextable.</span></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>ft</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>ft</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-cf506fc4{}.cl-cf454676{font-family:'Arial';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cf454680{font-family:'Arial';font-size:5pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 102, 153, 1.00);background-color:transparent;}.cl-cf45468a{font-family:'Arial';font-size:9pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cf45468b{font-family:'Arial';font-size:9pt;font-weight:bold;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cf45468c{font-family:'Arial';font-size:9pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cf454694{font-family:'Arial';font-size:9pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cf492462{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:2pt;line-height: 1;background-color:transparent;}.cl-cf49246c{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:2pt;padding-right:2pt;line-height: 1;background-color:transparent;}.cl-cf492476{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:2pt;padding-right:2pt;line-height: 1;background-color:transparent;}.cl-cf492477{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:12pt;padding-right:2pt;line-height: 1;background-color:transparent;}.cl-cf492478{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:17pt;padding-right:2pt;line-height: 1;background-color:transparent;}.cl-cf494230{width:1.772in;background-color:rgba(222, 195, 163, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 2pt solid rgba(255, 255, 255, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf49423a{width:0.75in;background-color:rgba(222, 195, 163, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 2pt solid rgba(255, 255, 255, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf494244{width:1.772in;background-color:rgba(222, 195, 163, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 2pt solid rgba(255, 255, 255, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf494245{width:0.75in;background-color:rgba(222, 195, 163, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 2pt solid rgba(255, 255, 255, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf49424e{width:1.772in;background-color:rgba(238, 221, 204, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf49424f{width:0.75in;background-color:rgba(238, 221, 204, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf494258{width:1.772in;background-color:rgba(245, 239, 229, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf494259{width:0.75in;background-color:rgba(245, 239, 229, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf494262{width:1.772in;background-color:rgba(245, 239, 229, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf494263{width:0.75in;background-color:rgba(245, 239, 229, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf49426c{width:1.772in;background-color:rgba(222, 195, 163, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 2pt solid rgba(255, 255, 255, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf494276{width:0.75in;background-color:rgba(222, 195, 163, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 2pt solid rgba(255, 255, 255, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-cf506fc4"><thead><tr style="overflow-wrap:break-word;"><th rowspan="2" class="cl-cf494230"><p class="cl-cf492462"><span class="cl-cf454676">Offences against property</span></p></th><th colspan="4" class="cl-cf49423a"><p class="cl-cf49246c"><span class="cl-cf454676">2018-19</span><span class="cl-cf454680"> (for pre-COVID comparison)</span></p></th><th colspan="4" class="cl-cf49423a"><p class="cl-cf49246c"><span class="cl-cf454676">Offences reported per 100,000 persons</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-cf49423a"><p class="cl-cf49246c"><span class="cl-cf454676">2018-19</span><span class="cl-cf454680"> (for pre-COVID comparison)</span></p></th><th class="cl-cf49423a"><p class="cl-cf49246c"><span class="cl-cf454676">2019-20 </span></p></th><th class="cl-cf49423a"><p class="cl-cf49246c"><span class="cl-cf454676">2020-21 </span></p></th><th class="cl-cf49423a"><p class="cl-cf49246c"><span class="cl-cf454676">1-yr change 2019-20 to 2020-21</span></p></th><th class="cl-cf49423a"><p class="cl-cf49246c"><span class="cl-cf454676">2018-19 (for pre-COVID comparison)</span></p></th><th class="cl-cf49423a"><p class="cl-cf49246c"><span class="cl-cf454676">2019-20(a) </span></p></th><th class="cl-cf49423a"><p class="cl-cf49246c"><span class="cl-cf454676">2020-21 </span></p></th><th class="cl-cf49423a"><p class="cl-cf49246c"><span class="cl-cf454676">1-yr change 2019-20 to 2020-21</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-cf494244"><p class="cl-cf492462"><span class="cl-cf454676">Offence</span></p></th><th colspan="2" class="cl-cf494245"><p class="cl-cf49246c"><span class="cl-cf454676">2018-19</span><span class="cl-cf454680"> (for pre-COVID comparison)</span></p></th><th colspan="2" class="cl-cf494245"><p class="cl-cf49246c"><span class="cl-cf454676">%</span></p></th><th colspan="2" class="cl-cf494245"><p class="cl-cf49246c"><span class="cl-cf454676">- Rate - </span></p></th><th colspan="2" class="cl-cf494245"><p class="cl-cf49246c"><span class="cl-cf454676">%</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-cf49424e"><p class="cl-cf492462"><span class="cl-cf45468a">Unlawful entry</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">40,251</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">42,170</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">35,681</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-15.4</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">796.8</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">821.2</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">683.9</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-16.7</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Unlawful entry with intent - dwelling</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">24,548</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">25,048</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">22,344</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-10.8</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">485.9</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">487.8</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">428.3</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-12.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492478"><span class="cl-cf454694">Without violence</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">23,849</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">24,348</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">21,641</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">-11.1</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">472.1</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">474.2</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">414.8</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">-12.5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492478"><span class="cl-cf454694">With violence</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">699</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">700</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">703</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">0.4</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">13.8</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">13.6</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">13.5</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">-1.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Unlawful entry with intent - shop</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">2,053</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">2,400</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">2,240</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-6.7</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">40.6</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">46.7</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">42.9</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-8.1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Unlawful entry with intent - other</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">13,650</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">14,722</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">11,097</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-24.6</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">270.2</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">286.7</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">212.7</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-25.8</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf49424e"><p class="cl-cf492462"><span class="cl-cf45468a">Arson</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">1,287</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">1,430</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">1,169</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-18.3</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">25.5</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">27.8</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">22.4</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-19.5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf49424e"><p class="cl-cf492462"><span class="cl-cf45468a">Other property damage</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">36,689</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">36,348</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">33,282</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-8.4</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">726.3</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">707.8</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">637.9</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-9.9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf49424e"><p class="cl-cf492462"><span class="cl-cf45468a">Unlawful use of motor vehicle</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">14,940</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">15,975</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">14,900</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-6.7</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">295.7</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">311.1</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">285.6</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-8.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf49424e"><p class="cl-cf492462"><span class="cl-cf45468a">Other theft</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">129,960</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">130,790</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">103,179</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-21.1</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">2,572.6</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">2,547.0</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">1,977.6</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-22.4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Stealing from dwellings</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">8,832</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">9,044</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">6,816</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-24.6</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">174.8</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">176.1</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">130.6</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-25.8</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Shop stealing</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">26,380</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">27,825</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">20,818</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-25.2</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">522.2</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">541.9</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">399.0</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-26.4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Vehicles</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">32,890</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">33,168</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">25,041</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-24.5</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">651.1</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">645.9</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">480.0</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-25.7</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Other stealing</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">61,858</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">60,753</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">50,504</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-16.9</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">1,224.5</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">1,183.1</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">968.0</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-18.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf49424e"><p class="cl-cf492462"><span class="cl-cf45468a">Fraud</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">28,994</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">30,431</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">23,424</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-23.0</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">574.0</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">592.6</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">449.0</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-24.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Fraud by computer</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">771</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">1,312</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">885</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-32.5</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">15.3</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">25.5</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">17.0</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-33.6</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Fraud by cheque</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">121</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">116</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">74</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-36.2</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">2.4</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">2.3</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">1.4</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-37.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Fraud by credit card</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">14,628</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">14,443</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">11,272</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-22.0</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">289.6</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">281.3</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">216.0</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-23.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Identity fraud</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">2,238</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">2,446</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">1,961</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-19.8</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">44.3</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">47.6</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">37.6</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-21.1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Other fraud</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">11,236</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">12,114</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">9,232</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-23.8</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">222.4</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">235.9</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">176.9</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-25.0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf49424e"><p class="cl-cf492462"><span class="cl-cf45468a">Handling stolen goods</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">6,657</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">7,684</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">5,181</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-32.6</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468b">131.8</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">149.6</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">99.3</span></p></td><td class="cl-cf49424f"><p class="cl-cf492476"><span class="cl-cf45468a">-33.6</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Possess property suspected stolen</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">3,006</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">3,346</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">2,044</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-38.9</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">59.5</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">65.2</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">39.2</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-39.9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Receiving stolen property</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">445</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">440</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">273</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-38.0</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">8.8</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">8.6</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">5.2</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-38.9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494258"><p class="cl-cf492477"><span class="cl-cf45468c">Possess etc. tainted property</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">3,134</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">3,816</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">2,805</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-26.5</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf454694">62.0</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">74.3</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">53.8</span></p></td><td class="cl-cf494259"><p class="cl-cf492476"><span class="cl-cf45468c">-27.7</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf494262"><p class="cl-cf492477"><span class="cl-cf45468c">Other handling stolen goods</span></p></td><td class="cl-cf494263"><p class="cl-cf492476"><span class="cl-cf454694">72</span></p></td><td class="cl-cf494263"><p class="cl-cf492476"><span class="cl-cf45468c">82</span></p></td><td class="cl-cf494263"><p class="cl-cf492476"><span class="cl-cf45468c">59</span></p></td><td class="cl-cf494263"><p class="cl-cf492476"><span class="cl-cf45468c">-28.0</span></p></td><td class="cl-cf494263"><p class="cl-cf492476"><span class="cl-cf454694">1.4</span></p></td><td class="cl-cf494263"><p class="cl-cf492476"><span class="cl-cf45468c">1.6</span></p></td><td class="cl-cf494263"><p class="cl-cf492476"><span class="cl-cf45468c">1.1</span></p></td><td class="cl-cf494263"><p class="cl-cf492476"><span class="cl-cf45468c">-29.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cf49426c"><p class="cl-cf492462"><span class="cl-cf45468a">Total</span></p></td><td class="cl-cf494276"><p class="cl-cf492476"><span class="cl-cf45468b">258,778</span></p></td><td class="cl-cf494276"><p class="cl-cf492476"><span class="cl-cf45468a">264,828</span></p></td><td class="cl-cf494276"><p class="cl-cf492476"><span class="cl-cf45468a">216,816</span></p></td><td class="cl-cf494276"><p class="cl-cf492476"><span class="cl-cf45468a">-18.1</span></p></td><td class="cl-cf494276"><p class="cl-cf492476"><span class="cl-cf45468b">5,122.6</span></p></td><td class="cl-cf494276"><p class="cl-cf492476"><span class="cl-cf45468a">5,157.3</span></p></td><td class="cl-cf494276"><p class="cl-cf492476"><span class="cl-cf45468a">4,155.7</span></p></td><td class="cl-cf494276"><p class="cl-cf492476"><span class="cl-cf45468a">-19.4</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-8f2ab9c4{}.cl-8f1eeb4e{font-family:'Arial';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8f1eeb62{font-family:'Arial';font-size:5pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 102, 153, 1.00);background-color:transparent;}.cl-8f1eeb6c{font-family:'Arial';font-size:9pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8f1eeb6d{font-family:'Arial';font-size:9pt;font-weight:bold;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8f1eeb6e{font-family:'Arial';font-size:9pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8f1eeb6f{font-family:'Arial';font-size:9pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8f232678{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:2pt;line-height: 1;background-color:transparent;}.cl-8f232682{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:2pt;padding-right:2pt;line-height: 1;background-color:transparent;}.cl-8f23268c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:2pt;padding-right:2pt;line-height: 1;background-color:transparent;}.cl-8f23268d{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:12pt;padding-right:2pt;line-height: 1;background-color:transparent;}.cl-8f23268e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:17pt;padding-right:2pt;line-height: 1;background-color:transparent;}.cl-8f236dd6{width:1.772in;background-color:rgba(222, 195, 163, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 2pt solid rgba(255, 255, 255, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8f236dea{width:0.75in;background-color:rgba(222, 195, 163, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 2pt solid rgba(255, 255, 255, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8f236deb{width:1.772in;background-color:rgba(238, 221, 204, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8f236df4{width:0.75in;background-color:rgba(238, 221, 204, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8f236df5{width:1.772in;background-color:rgba(245, 239, 229, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8f236df6{width:0.75in;background-color:rgba(245, 239, 229, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8f236dfe{width:1.772in;background-color:rgba(245, 239, 229, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8f236dff{width:0.75in;background-color:rgba(245, 239, 229, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8f236e00{width:1.772in;background-color:rgba(222, 195, 163, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 2pt solid rgba(255, 255, 255, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8f236e12{width:0.75in;background-color:rgba(222, 195, 163, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(255, 255, 255, 1.00);border-top: 2pt solid rgba(255, 255, 255, 1.00);border-left: 2pt solid rgba(255, 255, 255, 1.00);border-right: 2pt solid rgba(255, 255, 255, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-8f2ab9c4"><thead><tr style="overflow-wrap:break-word;"><th rowspan="2" class="cl-8f236dd6"><p class="cl-8f232678"><span class="cl-8f1eeb4e">Offences against property</span></p></th><th colspan="4" class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">2018-19</span><span class="cl-8f1eeb62"> (for pre-COVID comparison)</span></p></th><th colspan="4" class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">Offences reported per 100,000 persons</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">2018-19</span><span class="cl-8f1eeb62"> (for pre-COVID comparison)</span></p></th><th class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">2019-20 </span></p></th><th class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">2020-21 </span></p></th><th class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">1-yr change 2019-20 to 2020-21</span></p></th><th class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">2018-19 (for pre-COVID comparison)</span></p></th><th class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">2019-20(a) </span></p></th><th class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">2020-21 </span></p></th><th class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">1-yr change 2019-20 to 2020-21</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-8f236dd6"><p class="cl-8f232678"><span class="cl-8f1eeb4e">Offence</span></p></th><th colspan="2" class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">2018-19</span><span class="cl-8f1eeb62"> (for pre-COVID comparison)</span></p></th><th colspan="2" class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">%</span></p></th><th colspan="2" class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">- Rate - </span></p></th><th colspan="2" class="cl-8f236dea"><p class="cl-8f232682"><span class="cl-8f1eeb4e">%</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8f236deb"><p class="cl-8f232678"><span class="cl-8f1eeb6c">Unlawful entry</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">40,251</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">42,170</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">35,681</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-15.4</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">796.8</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">821.2</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">683.9</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-16.7</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Unlawful entry with intent - dwelling</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">24,548</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">25,048</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">22,344</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-10.8</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">485.9</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">487.8</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">428.3</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-12.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268e"><span class="cl-8f1eeb6f">Without violence</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">23,849</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">24,348</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">21,641</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">-11.1</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">472.1</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">474.2</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">414.8</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">-12.5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268e"><span class="cl-8f1eeb6f">With violence</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">699</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">700</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">703</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">0.4</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">13.8</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">13.6</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">13.5</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">-1.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Unlawful entry with intent - shop</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">2,053</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">2,400</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">2,240</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-6.7</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">40.6</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">46.7</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">42.9</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-8.1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Unlawful entry with intent - other</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">13,650</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">14,722</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">11,097</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-24.6</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">270.2</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">286.7</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">212.7</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-25.8</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236deb"><p class="cl-8f232678"><span class="cl-8f1eeb6c">Arson</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">1,287</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">1,430</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">1,169</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-18.3</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">25.5</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">27.8</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">22.4</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-19.5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236deb"><p class="cl-8f232678"><span class="cl-8f1eeb6c">Other property damage</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">36,689</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">36,348</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">33,282</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-8.4</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">726.3</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">707.8</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">637.9</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-9.9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236deb"><p class="cl-8f232678"><span class="cl-8f1eeb6c">Unlawful use of motor vehicle</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">14,940</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">15,975</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">14,900</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-6.7</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">295.7</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">311.1</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">285.6</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-8.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236deb"><p class="cl-8f232678"><span class="cl-8f1eeb6c">Other theft</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">129,960</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">130,790</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">103,179</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-21.1</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">2,572.6</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">2,547.0</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">1,977.6</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-22.4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Stealing from dwellings</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">8,832</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">9,044</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">6,816</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-24.6</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">174.8</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">176.1</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">130.6</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-25.8</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Shop stealing</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">26,380</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">27,825</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">20,818</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-25.2</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">522.2</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">541.9</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">399.0</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-26.4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Vehicles</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">32,890</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">33,168</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">25,041</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-24.5</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">651.1</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">645.9</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">480.0</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-25.7</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Other stealing</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">61,858</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">60,753</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">50,504</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-16.9</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">1,224.5</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">1,183.1</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">968.0</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-18.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236deb"><p class="cl-8f232678"><span class="cl-8f1eeb6c">Fraud</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">28,994</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">30,431</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">23,424</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-23.0</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">574.0</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">592.6</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">449.0</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-24.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Fraud by computer</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">771</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">1,312</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">885</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-32.5</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">15.3</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">25.5</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">17.0</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-33.6</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Fraud by cheque</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">121</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">116</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">74</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-36.2</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">2.4</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">2.3</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">1.4</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-37.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Fraud by credit card</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">14,628</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">14,443</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">11,272</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-22.0</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">289.6</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">281.3</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">216.0</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-23.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Identity fraud</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">2,238</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">2,446</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">1,961</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-19.8</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">44.3</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">47.6</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">37.6</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-21.1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Other fraud</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">11,236</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">12,114</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">9,232</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-23.8</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">222.4</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">235.9</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">176.9</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-25.0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236deb"><p class="cl-8f232678"><span class="cl-8f1eeb6c">Handling stolen goods</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">6,657</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">7,684</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">5,181</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-32.6</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">131.8</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">149.6</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">99.3</span></p></td><td class="cl-8f236df4"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-33.6</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Possess property suspected stolen</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">3,006</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">3,346</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">2,044</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-38.9</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">59.5</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">65.2</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">39.2</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-39.9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Receiving stolen property</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">445</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">440</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">273</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-38.0</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">8.8</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">8.6</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">5.2</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-38.9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236df5"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Possess etc. tainted property</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">3,134</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">3,816</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">2,805</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-26.5</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">62.0</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">74.3</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">53.8</span></p></td><td class="cl-8f236df6"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-27.7</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236dfe"><p class="cl-8f23268d"><span class="cl-8f1eeb6e">Other handling stolen goods</span></p></td><td class="cl-8f236dff"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">72</span></p></td><td class="cl-8f236dff"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">82</span></p></td><td class="cl-8f236dff"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">59</span></p></td><td class="cl-8f236dff"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-28.0</span></p></td><td class="cl-8f236dff"><p class="cl-8f23268c"><span class="cl-8f1eeb6f">1.4</span></p></td><td class="cl-8f236dff"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">1.6</span></p></td><td class="cl-8f236dff"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">1.1</span></p></td><td class="cl-8f236dff"><p class="cl-8f23268c"><span class="cl-8f1eeb6e">-29.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8f236e00"><p class="cl-8f232678"><span class="cl-8f1eeb6c">Total</span></p></td><td class="cl-8f236e12"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">258,778</span></p></td><td class="cl-8f236e12"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">264,828</span></p></td><td class="cl-8f236e12"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">216,816</span></p></td><td class="cl-8f236e12"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-18.1</span></p></td><td class="cl-8f236e12"><p class="cl-8f23268c"><span class="cl-8f1eeb6d">5,122.6</span></p></td><td class="cl-8f236e12"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">5,157.3</span></p></td><td class="cl-8f236e12"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">4,155.7</span></p></td><td class="cl-8f236e12"><p class="cl-8f23268c"><span class="cl-8f1eeb6c">-19.4</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 
@@ -417,43 +439,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
@@ -461,184 +498,184 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
       return codeEl.innerText;
     }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -646,185 +683,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
 
 

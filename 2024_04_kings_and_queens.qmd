@@ -17,18 +17,16 @@ We can quite easily observe the commonality of this across Brisbane ...
 # install.packages("sf")
 # install.packages("rmapshaper")
 # install.packages("leaflet")
-# install.packages("rgeos")
 # install.packages("plotly")
 
 # Restore our r environment.
 renv::restore(prompt = F)
 
 # Load required packages.
-library(sf)             # For reading Shape files.
-library(rgeos)          # For reducing Shape files.
+library(sf)             # For reading and processing Shape files.
 library(leaflet)        # Plotting Shape files.
 library(data.table)     # For data.tables.
-library(plotly)         # For plotsY.
+library(plotly)         # For plots.
 
 # Define a regex pattern of word-bounded Royal female and males names.
 royal_female <- "\\b(Adelaide|Cordelia|countess|Cordeilla|Ann|Queen|Victoria|Mary|Louise|Alexandra|Elizabeth|Alice|Margaret|Charlotte|Augusta|Helena|Maud|Agnes|Helene|Caroline|Olga|Louisa|Diana)\\b"

@@ -13,8 +13,8 @@ Hi — this site is a small portfolio of work in R, spatial analysis, and addres
 
 ## Active projects
 
-- [gnafr](https://kylehaynes.github.io/gnafr/) — active package for fuzzy matching Australian address text.
-- [fast.string](https://kylehaynes.github.io/fast.string/) — string processing utilities and tools.
+- [gnafr](https://kylehaynes.github.io/gnafr/) — active package for *fuzzy matching* Australian addresses.
+- [fast.string](https://kylehaynes.github.io/fast.string/) — *fast* string processing utilities and tools.
 
 ## Explore this site
 
