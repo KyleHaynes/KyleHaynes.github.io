@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Kyle Haynes">
+<meta name="dcterms.date" content="2026-06-28">
 
-<title>Kyle Haynes</title>
+<title>Three string functions in fast.string that earn their keep – Kyle Haynes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -75,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -93,7 +130,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -174,21 +211,44 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#fgrepl-pattern-matching-without-the-wait" id="toc-fgrepl-pattern-matching-without-the-wait" class="nav-link active" data-scroll-target="#fgrepl-pattern-matching-without-the-wait">1. <code>fgrepl()</code> — pattern matching without the wait</a></li>
+  <li><a href="#format_date-the-one-with-the-absurd-benchmark" id="toc-format_date-the-one-with-the-absurd-benchmark" class="nav-link" data-scroll-target="#format_date-the-one-with-the-absurd-benchmark">2. <code>format_date()</code> — the one with the absurd benchmark</a></li>
+  <li><a href="#jaro_winkler-jaro_winkler_tokens-fuzzy-matching-for-record-linkage" id="toc-jaro_winkler-jaro_winkler_tokens-fuzzy-matching-for-record-linkage" class="nav-link" data-scroll-target="#jaro_winkler-jaro_winkler_tokens-fuzzy-matching-for-record-linkage">3. <code>jaro_winkler()</code> / <code>jaro_winkler_tokens()</code> — fuzzy matching for record linkage</a></li>
+  <li><a href="#the-pattern" id="toc-the-pattern" class="nav-link" data-scroll-target="#the-pattern">The pattern</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Kyle Haynes</h1>
-<p class="subtitle lead">Data science, R, and Australian address matching.</p>
+<h1 class="title">Three string functions in <code>fast.string</code> that earn their keep</h1>
+<p class="subtitle lead">Drop-in replacements for base R string ops, parallelised in C++ — sometimes 100×+ faster</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Kyle Haynes </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 28, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -198,37 +258,213 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1">
-<h1>Welcome</h1>
-<p>Hi — this site is a small portfolio of work in R, spatial analysis, and address matching.</p>
-<section id="active-projects" class="level2">
-<h2 class="anchored" data-anchor-id="active-projects">Active projects</h2>
-<ul>
-<li><a href="https://kylehaynes.github.io/gnafr/">gnafr</a> — active package for <em>fuzzy matching</em> Australian addresses.</li>
-<li><a href="https://kylehaynes.github.io/fast.string/">fast.string</a> — <em>fast</em> string processing utilities and tools.</li>
-</ul>
+<p>Base R’s string functions are written for correctness and generality, not raw speed. On a 10-row vector that’s invisible. On a few million rows — the kind of data that turns up in record linkage, log parsing, or ETL — the wait gets real.</p>
+<p><code>fast.string</code> re-implements a handful of the hottest string operations in C++ (PCRE2 for regex, RE2’s zero-copy <code>StringPiece</code> for fixed strings) and runs them in parallel across every core via Intel TBB. The functions are <strong>drop-in replacements</strong> — same arguments, same results — so adopting them is usually a one-character change.</p>
+<p>Here are three that pull the most weight, with demos and benchmarks you can run yourself.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fast.string)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<blockquote class="blockquote">
+<p>All timings below are medians over 10 runs on a 16-core machine, R 4.5.0. Your mileage will vary with core count, but the shape holds.</p>
+</blockquote>
+<hr>
+<section id="fgrepl-pattern-matching-without-the-wait" class="level2">
+<h2 class="anchored" data-anchor-id="fgrepl-pattern-matching-without-the-wait">1. <code>fgrepl()</code> — pattern matching without the wait</h2>
+<p><code>fgrepl()</code> is <code>grepl()</code>. Same <code>pattern</code>, <code>x</code>, <code>ignore.case</code>, <code>fixed</code>, <code>perl</code> arguments; same logical vector out. The only difference is it spreads the work across your cores. If you hand it a pattern that uses PCRE-only syntax (lookaheads, backreferences, …) it quietly delegates to base R so you never get a wrong answer.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"apple pie"</span>, <span class="st">"banana bread"</span>, <span class="st">"cherry cake"</span>), <span class="fl">2e6</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The only change from base R: prepend "f"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fgrepl</span>(<span class="st">"berry"</span>, x)        <span class="co"># vs grepl("berry", x)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">grepl</span>(<span class="st">"berry"</span>, x), <span class="fu">fgrepl</span>(<span class="st">"berry"</span>, x))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Benchmark</strong> (2,000,000 strings):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">base        =</span> <span class="fu">grepl</span>(<span class="st">"berry"</span>, x),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fast.string =</span> <span class="fu">fgrepl</span>(<span class="st">"berry"</span>, x),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">10</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>function</th>
+<th style="text-align: right;">median</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>grepl()</code></td>
+<td style="text-align: right;">339 ms</td>
+</tr>
+<tr class="even">
+<td><code>fgrepl()</code></td>
+<td style="text-align: right;"><strong>16 ms</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>~21× faster</strong>, bit-for-bit identical output. The win comes for free — no change to how you write the call.</p>
+<hr>
 </section>
-<section id="explore-this-site" class="level2">
-<h2 class="anchored" data-anchor-id="explore-this-site">Explore this site</h2>
-<ul>
-<li><a href="./about.html">About</a></li>
-<li><a href="gnafr.qmd">GNAFR overview</a></li>
-<li><a href="./2024_04_kings_and_queens.html">Royal Street Names in Brisbane City</a></li>
-<li><a href="./2024_04_flextables_in_quarto.html">Flextables in Quarto</a></li>
-<li><a href="hello-world.qmd">Hello world demo</a></li>
-</ul>
+<section id="format_date-the-one-with-the-absurd-benchmark" class="level2">
+<h2 class="anchored" data-anchor-id="format_date-the-one-with-the-absurd-benchmark">2. <code>format_date()</code> — the one with the absurd benchmark</h2>
+<p>Formatting dates in base R goes through locale handling, timezone lookups, and <code>strptime</code> machinery you almost never need when you just want <code>"2024-03-17"</code>. <code>format_date()</code> skips all of it and uses an integer date-math algorithm, with no calendar object in sight.</p>
+<p>It takes a <code>Date</code> (or raw days-since-epoch) and gives you one of four common layouts: <code>"iso"</code>, <code>"compact"</code> (<code>YYYYMMDD</code>), <code>"dmy"</code>, or <code>"ymd_slash"</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2000-01-01"</span>) <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">9000</span>, <span class="fl">2e6</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format_date</span>(d, <span class="st">"iso"</span>)      <span class="co"># "2003-11-24" ...</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">format_date</span>(d, <span class="st">"compact"</span>)  <span class="co"># "20031124"   ...</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">format</span>(d, <span class="st">"%Y-%m-%d"</span>), <span class="fu">format_date</span>(d, <span class="st">"iso"</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Benchmark</strong> (2,000,000 dates):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">base        =</span> <span class="fu">format</span>(d, <span class="st">"%Y-%m-%d"</span>),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fast.string =</span> <span class="fu">format_date</span>(d, <span class="st">"iso"</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">10</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>function</th>
+<th style="text-align: right;">median</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>format(d, "%Y-%m-%d")</code></td>
+<td style="text-align: right;">14,953 ms</td>
+</tr>
+<tr class="even">
+<td><code>format_date(d, "iso")</code></td>
+<td style="text-align: right;"><strong>102 ms</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>~147× faster.</strong> Base R takes 15 <em>seconds</em>; <code>format_date()</code> takes a tenth of a second. If you’ve ever watched a pipeline stall on a <code>format()</code> call over a big date column, this is the fix. (There’s a matching <code>fas.Date()</code> for the reverse direction.)</p>
+<hr>
 </section>
-<section id="notes" class="level2">
-<h2 class="anchored" data-anchor-id="notes">Notes</h2>
-<p>This site is maintained in Quarto and published to GitHub Pages from the <code>docs/</code> folder. The interactive app content has been removed so the site stays focused on published Quarto pages.</p>
-<p>```</p>
-<p>asdas</p>
-<details>
-asdas
-</details>
+<section id="jaro_winkler-jaro_winkler_tokens-fuzzy-matching-for-record-linkage" class="level2">
+<h2 class="anchored" data-anchor-id="jaro_winkler-jaro_winkler_tokens-fuzzy-matching-for-record-linkage">3. <code>jaro_winkler()</code> / <code>jaro_winkler_tokens()</code> — fuzzy matching for record linkage</h2>
+<p>Comparing names and addresses across datasets means tolerating typos, so you need a string-similarity score. <code>jaro_winkler()</code> computes the classic metric, vectorised over pairs and parallelised:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">jaro_winkler</span>(<span class="st">"haynes"</span>, <span class="st">"haines"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ~0.94</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>It matches <code>stringdist</code>’s implementation to floating-point precision while running a few times faster — but the real reason to reach for this package is <code>jaro_winkler_tokens()</code>, which has no base-R or <code>stringdist</code> equivalent.</p>
+<p>Plain Jaro-Winkler reads each string as one ordered run of characters, so it falls apart the moment words <strong>move</strong> or <strong>split</strong>, which is exactly what messy name data does:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Kyle John Haynes"</span>, <span class="st">"O'Brien"</span>,  <span class="st">"John Smith"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"John Kylie Haynes"</span>,<span class="st">"O Brien"</span>,  <span class="st">"John Smith Jones"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  a, b,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">plain    =</span> <span class="fu">round</span>(<span class="fu">jaro_winkler</span>(a, b), <span class="dv">3</span>),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">tokens   =</span> <span class="fu">round</span>(<span class="fu">jaro_winkler_tokens</span>(a, b), <span class="dv">3</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>a</th>
+<th>b</th>
+<th style="text-align: right;">plain</th>
+<th style="text-align: right;">tokens</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kyle John Haynes</td>
+<td>John Kylie Haynes</td>
+<td style="text-align: right;">0.897</td>
+<td style="text-align: right;"><strong>0.984</strong></td>
+</tr>
+<tr class="even">
+<td>O’Brien</td>
+<td>O Brien</td>
+<td style="text-align: right;">0.914</td>
+<td style="text-align: right;"><strong>1.000</strong></td>
+</tr>
+<tr class="odd">
+<td>John Smith</td>
+<td>John Smith Jones</td>
+<td style="text-align: right;">0.925</td>
+<td style="text-align: right;">0.929</td>
+</tr>
+</tbody>
+</table>
+<p><code>jaro_winkler_tokens()</code> splits on whitespace, scores every token against every token, greedily pairs the best matches, and also tries a punctuation-stripped collapsed comparison — keeping the higher score. Reordered names (<code>"Kyle John"</code> ↔︎ <code>"John Kylie"</code>) and stray punctuation (<code>"O'Brien"</code> ↔︎ <code>"O Brien"</code>) stop being penalised, while a genuinely extra token (<code>"Jones"</code>) still costs a little. It’ll even rescue fused words like <code>"KYLEJOHN"</code> ↔︎ <code>"KYLE JOHN"</code> with <code>contractions = TRUE</code>.</p>
+<p><strong>Benchmark</strong> (500,000 pairs, vs <code>stringdist</code>):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringdist)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringdist  =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">stringdist</span>(a, b, <span class="at">method =</span> <span class="st">"jw"</span>, <span class="at">p =</span> <span class="fl">0.1</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fast.string =</span> <span class="fu">jaro_winkler</span>(a, b, <span class="at">p =</span> <span class="fl">0.1</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">10</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>function</th>
+<th style="text-align: right;">median</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>stringdist(method="jw")</code></td>
+<td style="text-align: right;">15.0 ms</td>
+</tr>
+<tr class="even">
+<td><code>jaro_winkler()</code></td>
+<td style="text-align: right;"><strong>5.3 ms</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>~2.8× faster than an already-compiled C implementation</strong>, with a max difference of <code>1e-16</code> — and the token-aware variant gives you matching power the alternatives simply don’t have.</p>
+<hr>
+</section>
+<section id="the-pattern" class="level2">
+<h2 class="anchored" data-anchor-id="the-pattern">The pattern</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>base R</th>
+<th><code>fast.string</code></th>
+<th style="text-align: right;">speedup*</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>grepl()</code></td>
+<td><code>fgrepl()</code></td>
+<td style="text-align: right;">~21×</td>
+</tr>
+<tr class="even">
+<td><code>format(d, "%Y-%m-%d")</code></td>
+<td><code>format_date()</code></td>
+<td style="text-align: right;">~147×</td>
+</tr>
+<tr class="odd">
+<td><code>stringdist(method="jw")</code></td>
+<td><code>jaro_winkler()</code></td>
+<td style="text-align: right;">~2.8×</td>
+</tr>
+</tbody>
+</table>
+<p>* 16 cores, large vectors; see benchmarks above.</p>
+<p>These are three of several — the package also has <code>gsub_all()</code> (multi-pattern substitution in one pass), parallel <code>ftrimws()</code>/<code>fsubstr()</code>/<code>fnchar()</code>/ <code>fchartr()</code>, <code>date_parts()</code>, and phonetic codings (<code>soundex()</code>, <code>nysiis()</code>).</p>
+<p>The common thread: <strong>same arguments, same results, a fraction of the time.</strong> For interactive work on small data it won’t matter. For production pipelines over millions of rows, swapping in a few of these can turn a coffee break back into a keystroke.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

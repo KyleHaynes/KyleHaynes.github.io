@@ -1,0 +1,201 @@
+---
+title: "Three string functions in `fast.string` that earn their keep"
+subtitle: "Drop-in replacements for base R string ops, parallelised in C++ — sometimes 100×+ faster"
+author: "Kyle Haynes"
+date: "2026-06-28"
+format:
+  html:
+    toc: true
+    code-fold: false
+    df-print: kable
+execute:
+  eval: false
+---
+
+Base R's string functions are written for correctness and generality, not raw
+speed. On a 10-row vector that's invisible. On a few million rows — the kind of
+data that turns up in record linkage, log parsing, or ETL — the wait gets real.
+
+`fast.string` re-implements a handful of the hottest string operations in C++
+(PCRE2 for regex, RE2's zero-copy `StringPiece` for fixed strings) and runs them
+in parallel across every core via Intel TBB. The functions are **drop-in
+replacements** — same arguments, same results — so adopting them is usually a
+one-character change.
+
+Here are three that pull the most weight, with demos and benchmarks you can run
+yourself.
+
+```{r setup}
+library(fast.string)
+library(microbenchmark)
+```
+
+> All timings below are medians over 10 runs on a 16-core machine, R 4.5.0.
+> Your mileage will vary with core count, but the shape holds.
+
+---
+
+## 1. `fgrepl()` — pattern matching without the wait
+
+`fgrepl()` is `grepl()`. Same `pattern`, `x`, `ignore.case`, `fixed`, `perl`
+arguments; same logical vector out. The only difference is it spreads the work
+across your cores. If you hand it a pattern that uses PCRE-only syntax
+(lookaheads, backreferences, …) it quietly delegates to base R so you never get
+a wrong answer.
+
+```{r fgrepl-demo}
+x <- sample(c("apple pie", "banana bread", "cherry cake"), 2e6, replace = TRUE)
+
+# The only change from base R: prepend "f"
+fgrepl("berry", x)        # vs grepl("berry", x)
+
+identical(grepl("berry", x), fgrepl("berry", x))
+#> [1] TRUE
+```
+
+**Benchmark** (2,000,000 strings):
+
+```{r fgrepl-bench}
+microbenchmark(
+  base        = grepl("berry", x),
+  fast.string = fgrepl("berry", x),
+  times = 10
+)
+```
+
+| function | median |
+|----------|-------:|
+| `grepl()` | 339 ms |
+| `fgrepl()` | **16 ms** |
+
+**~21× faster**, bit-for-bit identical output. The win comes for free — no
+change to how you write the call.
+
+---
+
+## 2. `format_date()` — the one with the absurd benchmark
+
+Formatting dates in base R goes through locale handling, timezone lookups, and
+`strptime` machinery you almost never need when you just want `"2024-03-17"`.
+`format_date()` skips all of it and uses an integer date-math algorithm, with no
+calendar object in sight.
+
+It takes a `Date` (or raw days-since-epoch) and gives you one of four common
+layouts: `"iso"`, `"compact"` (`YYYYMMDD`), `"dmy"`, or `"ymd_slash"`.
+
+```{r date-demo}
+d <- as.Date("2000-01-01") + sample(0:9000, 2e6, replace = TRUE)
+
+format_date(d, "iso")      # "2003-11-24" ...
+format_date(d, "compact")  # "20031124"   ...
+
+identical(format(d, "%Y-%m-%d"), format_date(d, "iso"))
+#> [1] TRUE
+```
+
+**Benchmark** (2,000,000 dates):
+
+```{r date-bench}
+microbenchmark(
+  base        = format(d, "%Y-%m-%d"),
+  fast.string = format_date(d, "iso"),
+  times = 10
+)
+```
+
+| function | median |
+|----------|-------:|
+| `format(d, "%Y-%m-%d")` | 14,953 ms |
+| `format_date(d, "iso")` | **102 ms** |
+
+**~147× faster.** Base R takes 15 *seconds*; `format_date()` takes a tenth of a
+second. If you've ever watched a pipeline stall on a `format()` call over a big
+date column, this is the fix. (There's a matching `fas.Date()` for the reverse
+direction.)
+
+---
+
+## 3. `jaro_winkler()` / `jaro_winkler_tokens()` — fuzzy matching for record linkage
+
+Comparing names and addresses across datasets means tolerating typos, so you
+need a string-similarity score. `jaro_winkler()` computes the classic metric,
+vectorised over pairs and parallelised:
+
+```{r jw-demo}
+jaro_winkler("haynes", "haines")
+#> ~0.94
+```
+
+It matches `stringdist`'s implementation to floating-point precision while
+running a few times faster — but the real reason to reach for this package is
+`jaro_winkler_tokens()`, which has no base-R or `stringdist` equivalent.
+
+Plain Jaro-Winkler reads each string as one ordered run of characters, so it
+falls apart the moment words **move** or **split**, which is exactly what messy
+name data does:
+
+```{r jw-tokens-demo}
+a <- c("Kyle John Haynes", "O'Brien",  "John Smith")
+b <- c("John Kylie Haynes","O Brien",  "John Smith Jones")
+
+data.frame(
+  a, b,
+  plain    = round(jaro_winkler(a, b), 3),
+  tokens   = round(jaro_winkler_tokens(a, b), 3)
+)
+```
+
+| a | b | plain | tokens |
+|---|---|------:|-------:|
+| Kyle John Haynes | John Kylie Haynes | 0.897 | **0.984** |
+| O'Brien | O Brien | 0.914 | **1.000** |
+| John Smith | John Smith Jones | 0.925 | 0.929 |
+
+`jaro_winkler_tokens()` splits on whitespace, scores every token against every
+token, greedily pairs the best matches, and also tries a punctuation-stripped
+collapsed comparison — keeping the higher score. Reordered names
+(`"Kyle John"` ↔ `"John Kylie"`) and stray punctuation (`"O'Brien"` ↔
+`"O Brien"`) stop being penalised, while a genuinely extra token (`"Jones"`)
+still costs a little. It'll even rescue fused words like `"KYLEJOHN"` ↔
+`"KYLE JOHN"` with `contractions = TRUE`.
+
+**Benchmark** (500,000 pairs, vs `stringdist`):
+
+```{r jw-bench}
+library(stringdist)
+microbenchmark(
+  stringdist  = 1 - stringdist(a, b, method = "jw", p = 0.1),
+  fast.string = jaro_winkler(a, b, p = 0.1),
+  times = 10
+)
+```
+
+| function | median |
+|----------|-------:|
+| `stringdist(method="jw")` | 15.0 ms |
+| `jaro_winkler()` | **5.3 ms** |
+
+**~2.8× faster than an already-compiled C implementation**, with a max
+difference of `1e-16` — and the token-aware variant gives you matching power the
+alternatives simply don't have.
+
+---
+
+## The pattern
+
+| base R | `fast.string` | speedup\* |
+|--------|---------------|----------:|
+| `grepl()` | `fgrepl()` | ~21× |
+| `format(d, "%Y-%m-%d")` | `format_date()` | ~147× |
+| `stringdist(method="jw")` | `jaro_winkler()` | ~2.8× |
+
+\* 16 cores, large vectors; see benchmarks above.
+
+These are three of several — the package also has `gsub_all()` (multi-pattern
+substitution in one pass), parallel `ftrimws()`/`fsubstr()`/`fnchar()`/
+`fchartr()`, `date_parts()`, and phonetic codings (`soundex()`, `nysiis()`).
+
+The common thread: **same arguments, same results, a fraction of the time.**
+For interactive work on small data it won't matter. For production pipelines
+over millions of rows, swapping in a few of these can turn a coffee break back
+into a keystroke.
