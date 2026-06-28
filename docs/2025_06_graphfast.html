@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About – Kyle Haynes</title>
+<title>Untangling messy records with set_group_id() – Kyle Haynes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -70,6 +105,14 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<link href="site_libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+
+<script src="site_libs/vis-9.1.0/vis-network.min.js"></script>
+
+<script src="site_libs/visNetwork-binding-2.1.4/visNetwork.js"></script>
+
 
 
 <link rel="stylesheet" href="styles.css">
@@ -97,7 +140,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
@@ -166,15 +209,26 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-problem" id="toc-the-problem" class="nav-link active" data-scroll-target="#the-problem">The problem</a></li>
+  <li><a href="#why-its-quick-to-use" id="toc-why-its-quick-to-use" class="nav-link" data-scroll-target="#why-its-quick-to-use">Why it’s quick to use</a></li>
+  <li><a href="#isolation-stopping-false-links-across-columns" id="toc-isolation-stopping-false-links-across-columns" class="nav-link" data-scroll-target="#isolation-stopping-false-links-across-columns">Isolation: stopping false links across columns</a></li>
+  <li><a href="#seeing-the-linkage" id="toc-seeing-the-linkage" class="nav-link" data-scroll-target="#seeing-the-linkage">Seeing the linkage</a></li>
+  <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Untangling messy records with <code>set_group_id()</code></h1>
+<p class="subtitle lead">Same person, three different rows — graphfast finds them in one call</p>
 </div>
 
 
@@ -191,9 +245,139 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>About this site</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(graphfast)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="the-problem" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem">The problem</h2>
+<p>Real-world data is full of duplicates that don’t <em>look</em> like duplicates. A customer signs up three times with three different names, but the same phone number creeps into two of those records and the same email into the other two. No single column ties all three rows together — but a <strong>chain</strong> of shared values does.</p>
+<p>This is exactly the kind of problem graph algorithms are good at, and it’s why <code>set_group_id()</code> exists: treat every row and every value it contains as nodes in a graph, connect a row to each value it holds, and then ask “which nodes end up in the same connected component?” Rows in the same component get the same group id.</p>
+</section>
+<section id="why-its-quick-to-use" class="level2">
+<h2 class="anchored" data-anchor-id="why-its-quick-to-use">Why it’s quick to use</h2>
+<p>No graph code, no manual joins — just point it at the columns that might overlap:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id     =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">name   =</span> <span class="fu">c</span>(<span class="st">"John Smith"</span>, <span class="st">"J. Smith"</span>, <span class="st">"Jane Doe"</span>, <span class="st">"Bob Jones"</span>, <span class="st">"Robert Jones"</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">phone  =</span> <span class="fu">c</span>(<span class="st">"555-0101"</span>, <span class="st">"555-0101"</span>, <span class="st">"555-0202"</span>, <span class="st">"555-0303"</span>, <span class="st">"555-0404"</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">email  =</span> <span class="fu">c</span>(<span class="st">"john@mail.com"</span>, <span class="st">"jsmith@mail.com"</span>, <span class="st">"jane@mail.com"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>             <span class="st">"bob@mail.com"</span>, <span class="st">"555-0303"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>dt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      id         name    phone           email
+   &lt;int&gt;       &lt;char&gt;   &lt;char&gt;          &lt;char&gt;
+1:     1   John Smith 555-0101   john@mail.com
+2:     2     J. Smith 555-0101 jsmith@mail.com
+3:     3     Jane Doe 555-0202   jane@mail.com
+4:     4    Bob Jones 555-0303    bob@mail.com
+5:     5 Robert Jones 555-0404        555-0303</code></pre>
+</div>
+</div>
+<p>Rows 1 and 2 share a phone number. Row 5 doesn’t share a phone or name with row 4 at all — but its email happens to be the same string as row 4’s phone number. One call resolves the whole chain:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set_group_id</span>(dt, <span class="at">cols =</span> <span class="st">"phone|email"</span>, <span class="at">var_output_name =</span> <span class="st">"gid"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      id         name    phone           email   gid
+   &lt;int&gt;       &lt;char&gt;   &lt;char&gt;          &lt;char&gt; &lt;int&gt;
+1:     1   John Smith 555-0101   john@mail.com     1
+2:     2     J. Smith 555-0101 jsmith@mail.com     1
+3:     3     Jane Doe 555-0202   jane@mail.com     2
+4:     4    Bob Jones 555-0303    bob@mail.com     3
+5:     5 Robert Jones 555-0404        555-0303     3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      id         name    phone           email   gid
+   &lt;int&gt;       &lt;char&gt;   &lt;char&gt;          &lt;char&gt; &lt;int&gt;
+1:     1   John Smith 555-0101   john@mail.com     1
+2:     2     J. Smith 555-0101 jsmith@mail.com     1
+3:     3     Jane Doe 555-0202   jane@mail.com     2
+4:     4    Bob Jones 555-0303    bob@mail.com     3
+5:     5 Robert Jones 555-0404        555-0303     3</code></pre>
+</div>
+</div>
+<p>Rows 1 and 2 collapse into one group (matching phone numbers), and rows 4 and 5 collapse into another (row 5’s stray value matches row 4’s phone), while row 3 (Jane Doe) stays on her own. That’s the whole API: a data.table, a column pattern, done.</p>
+</section>
+<section id="isolation-stopping-false-links-across-columns" class="level2">
+<h2 class="anchored" data-anchor-id="isolation-stopping-false-links-across-columns">Isolation: stopping false links across columns</h2>
+<p>Notice what just happened with row 5 — its email value (<code>"555-0303"</code>) is <em>textually identical</em> to row 4’s phone number, so they got linked even though one is “obviously” a phone number and the other is “obviously” an email. That might be exactly what you want (data entry errors do happen), or it might be a false positive you need to prevent.</p>
+<p>That’s what <code>isolate</code> is for: it keeps values from different column sets in separate namespaces, so identical text only links rows <strong>within the same set</strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dt2 <span class="ot">&lt;-</span> <span class="fu">copy</span>(dt)[, gid <span class="sc">:</span><span class="er">=</span> <span class="cn">NULL</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set_group_id</span>(dt2, <span class="at">isolate =</span> <span class="fu">list</span>(<span class="st">"phone"</span>, <span class="st">"email"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      id         name    phone           email   gid
+   &lt;int&gt;       &lt;char&gt;   &lt;char&gt;          &lt;char&gt; &lt;int&gt;
+1:     1   John Smith 555-0101   john@mail.com     1
+2:     2     J. Smith 555-0101 jsmith@mail.com     1
+3:     3     Jane Doe 555-0202   jane@mail.com     2
+4:     4    Bob Jones 555-0303    bob@mail.com     3
+5:     5 Robert Jones 555-0404        555-0303     4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dt2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      id         name    phone           email   gid
+   &lt;int&gt;       &lt;char&gt;   &lt;char&gt;          &lt;char&gt; &lt;int&gt;
+1:     1   John Smith 555-0101   john@mail.com     1
+2:     2     J. Smith 555-0101 jsmith@mail.com     1
+3:     3     Jane Doe 555-0202   jane@mail.com     2
+4:     4    Bob Jones 555-0303    bob@mail.com     3
+5:     5 Robert Jones 555-0404        555-0303     4</code></pre>
+</div>
+</div>
+<p>With <code>phone</code> and <code>email</code> isolated from each other, row 5’s stray value no longer connects it to row 4 — the phone-shaped string sitting in the email column is just ignored for grouping purposes. Row 1 and 2 still merge, because that link is a genuine phone match within the same set.</p>
+<p>This matters most when you’re matching across many heterogeneous columns (<code>phone1</code>, <code>phone2</code>, <code>alt_phone</code>, <code>email</code>, <code>secondary_email</code>, …) and don’t want a coincidental string collision between unrelated fields to merge two otherwise-unrelated customers.</p>
+</section>
+<section id="seeing-the-linkage" class="level2">
+<h2 class="anchored" data-anchor-id="seeing-the-linkage">Seeing the linkage</h2>
+<p>Because <code>set_group_id()</code> can hand back the record-to-record edge list (every pair of ids that share a value, plus the shared value itself), the result drops straight into <a href="https://datastorm-open.github.io/visNetwork/"><code>visNetwork</code></a> for a quick visual sanity check:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visNetwork)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'visNetwork' was built under R version 4.5.3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dt3 <span class="ot">&lt;-</span> <span class="fu">copy</span>(dt)[, gid <span class="sc">:</span><span class="er">=</span> <span class="cn">NULL</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>edges <span class="ot">&lt;-</span> <span class="fu">set_group_id</span>(dt3, <span class="at">isolate =</span> <span class="fu">list</span>(<span class="st">"phone"</span>, <span class="st">"email"</span>), <span class="at">return_edges =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>nodes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">id    =</span> dt3<span class="sc">$</span>id,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> dt3<span class="sc">$</span>name,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">group =</span> dt3<span class="sc">$</span>gid,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"phone: "</span>, dt3<span class="sc">$</span>phone, <span class="st">"&lt;br&gt;email: "</span>, dt3<span class="sc">$</span>email)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>vis_edges <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">from  =</span> edges<span class="sc">$</span>from,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">to    =</span> edges<span class="sc">$</span>to,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> edges<span class="sc">$</span>value   <span class="co"># hover shows the value that links the pair</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(nodes, vis_edges, <span class="at">width =</span> <span class="st">"100%"</span>, <span class="at">height =</span> <span class="st">"320px"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visNodes</span>(<span class="at">shape =</span> <span class="st">"dot"</span>, <span class="at">size =</span> <span class="dv">24</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visOptions</span>(<span class="at">highlightNearest =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLegend</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="htmlwidget-f843a680a1fcd62a0dd1" style="width:100%;height:320px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f843a680a1fcd62a0dd1">{"x":{"nodes":{"id":[1,2,3,4,5],"label":["John Smith","J. Smith","Jane Doe","Bob Jones","Robert Jones"],"group":[1,1,2,3,4],"title":["phone: 555-0101<br>email: john@mail.com","phone: 555-0101<br>email: jsmith@mail.com","phone: 555-0202<br>email: jane@mail.com","phone: 555-0303<br>email: bob@mail.com","phone: 555-0404<br>email: 555-0303"]},"edges":{"from":[1],"to":[2],"title":["555-0101"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","size":24},"manipulation":{"enabled":false}},"groups":["1","2","3","4"],"width":"100%","height":"320px","idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":true,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Two clusters, one isolated node — exactly what the table above said, but now it’s obvious at a glance which shared value pulled which records together (hover an edge to see it).</p>
+</section>
+<section id="takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
+<ul>
+<li><strong>Quick</strong>: one function call, no manual graph wrangling, works directly on a <code>data.table</code> by reference.</li>
+<li><strong>Flexible matching</strong>: a regex (<code>cols</code>) picks up every relevant column at once, so adding a new identifier column doesn’t require new code.</li>
+<li><strong>Safe by default, configurable when needed</strong>: <code>isolate</code> stops unrelated columns from cross-linking on a coincidental string match, while still letting genuinely shared values (within a set) merge records.</li>
+<li><strong>Inspectable</strong>: <code>return_edges = TRUE</code> gives you the <em>why</em> behind every group, which is what makes the <code>visNetwork</code> plot above possible.</li>
+</ul>
+<p>See <code>?set_group_id</code> and the <a href="docs/examples.qmd">examples page</a> for more patterns, including <code>incomparables</code> for excluding sentinel values like <code>"Unknown"</code> from grouping.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

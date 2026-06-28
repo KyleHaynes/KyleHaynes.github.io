@@ -1,0 +1,137 @@
+---
+title: "Untangling messy records with `set_group_id()`"
+subtitle: "Same person, three different rows — graphfast finds them in one call"
+---
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+library(graphfast)
+library(data.table)
+set.seed(1)
+```
+
+## The problem
+
+Real-world data is full of duplicates that don't *look* like duplicates. A
+customer signs up three times with three different names, but the same phone
+number creeps into two of those records and the same email into the other two.
+No single column ties all three rows together — but a **chain** of shared
+values does.
+
+This is exactly the kind of problem graph algorithms are good at, and it's why
+`set_group_id()` exists: treat every row and every value it contains as nodes
+in a graph, connect a row to each value it holds, and then ask "which nodes
+end up in the same connected component?" Rows in the same component get the
+same group id.
+
+## Why it's quick to use
+
+No graph code, no manual joins — just point it at the columns that might
+overlap:
+
+```{r}
+dt <- data.table(
+  id     = 1:5,
+  name   = c("John Smith", "J. Smith", "Jane Doe", "Bob Jones", "Robert Jones"),
+  phone  = c("555-0101", "555-0101", "555-0202", "555-0303", "555-0404"),
+  email  = c("john@mail.com", "jsmith@mail.com", "jane@mail.com",
+             "bob@mail.com", "555-0303")
+)
+dt
+```
+
+Rows 1 and 2 share a phone number. Row 5 doesn't share a phone or name with
+row 4 at all — but its email happens to be the same string as row 4's phone
+number. One call resolves the whole chain:
+
+```{r}
+set_group_id(dt, cols = "phone|email", var_output_name = "gid")
+dt
+```
+
+Rows 1 and 2 collapse into one group (matching phone numbers), and rows 4 and
+5 collapse into another (row 5's stray value matches row 4's phone), while
+row 3 (Jane Doe) stays on her own. That's the whole API: a data.table, a
+column pattern, done.
+
+## Isolation: stopping false links across columns
+
+Notice what just happened with row 5 — its email value (`"555-0303"`) is
+*textually identical* to row 4's phone number, so they got linked even though
+one is "obviously" a phone number and the other is "obviously" an email. That
+might be exactly what you want (data entry errors do happen), or it might be a
+false positive you need to prevent.
+
+That's what `isolate` is for: it keeps values from different column sets in
+separate namespaces, so identical text only links rows **within the same
+set**.
+
+```{r}
+dt2 <- copy(dt)[, gid := NULL]
+set_group_id(dt2, isolate = list("phone", "email"))
+dt2
+```
+
+With `phone` and `email` isolated from each other, row 5's stray value no
+longer connects it to row 4 — the phone-shaped string sitting in the email
+column is just ignored for grouping purposes. Row 1 and 2 still merge,
+because that link is a genuine phone match within the same set.
+
+This matters most when you're matching across many heterogeneous columns
+(`phone1`, `phone2`, `alt_phone`, `email`, `secondary_email`, ...) and don't
+want a coincidental string collision between unrelated fields to merge two
+otherwise-unrelated customers.
+
+## Seeing the linkage
+
+Because `set_group_id()` can hand back the record-to-record edge list (every
+pair of ids that share a value, plus the shared value itself), the result
+drops straight into [`visNetwork`](https://datastorm-open.github.io/visNetwork/)
+for a quick visual sanity check:
+
+```{r}
+#| eval: !expr requireNamespace("visNetwork", quietly = TRUE)
+library(visNetwork)
+
+dt3 <- copy(dt)[, gid := NULL]
+edges <- set_group_id(dt3, isolate = list("phone", "email"), return_edges = TRUE)
+
+nodes <- data.frame(
+  id    = dt3$id,
+  label = dt3$name,
+  group = dt3$gid,
+  title = paste0("phone: ", dt3$phone, "<br>email: ", dt3$email)
+)
+vis_edges <- data.frame(
+  from  = edges$from,
+  to    = edges$to,
+  title = edges$value   # hover shows the value that links the pair
+)
+
+visNetwork(nodes, vis_edges, width = "100%", height = "320px") |>
+  visNodes(shape = "dot", size = 24) |>
+  visOptions(highlightNearest = TRUE) |>
+  visLegend()
+```
+
+Two clusters, one isolated node — exactly what the table above said, but now
+it's obvious at a glance which shared value pulled which records together
+(hover an edge to see it).
+
+## Takeaways
+
+- **Quick**: one function call, no manual graph wrangling, works directly on
+  a `data.table` by reference.
+- **Flexible matching**: a regex (`cols`) picks up every relevant column at
+  once, so adding a new identifier column doesn't require new code.
+- **Safe by default, configurable when needed**: `isolate` stops unrelated
+  columns from cross-linking on a coincidental string match, while still
+  letting genuinely shared values (within a set) merge records.
+- **Inspectable**: `return_edges = TRUE` gives you the *why* behind every
+  group, which is what makes the `visNetwork` plot above possible.
+
+See `?set_group_id` and the [examples page](docs/examples.qmd) for more
+patterns, including `incomparables` for excluding sentinel values like
+`"Unknown"` from grouping.
