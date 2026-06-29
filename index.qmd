@@ -210,22 +210,28 @@ links between them.</p>
 ::: {.project-card}
 <span class="pkg-name">gnafr</span>
 
-R package for *fuzzy matching* Australian addresses against the GNAF.
-[Visit site →](https://kylehaynes.github.io/gnafr/) [Visit repo →](https://github.com/KyleHaynes/gnafr)
+R package for *fuzzy matching* Australian addresses against GNAF.<br/>
+[Visit site →](https://kylehaynes.github.io/gnafr/)<br/>[Visit repo →](https://github.com/KyleHaynes/gnafr)
 :::
 
 ::: {.project-card}
 <span class="pkg-name">fast.string</span>
 
 *Fast* string processing utilities used as building blocks for matching
-and cleaning text fields. [Visit site →](https://kylehaynes.github.io/fast.string/) [Visit repo →](https://github.com/KyleHaynes/fast.string)
+and cleaning text fields. <br/>[Visit site →](https://kylehaynes.github.io/fast.string/)<br/>[Visit repo →](https://github.com/KyleHaynes/fast.string)
 :::
 
 ::: {.project-card}
 <span class="pkg-name">graphfast</span>
 
 Connected-component grouping for data.table — resolve linkage chains with
-one function call. [Read the post →](2025_06_graphfast.qmd)  [Visit repo →](https://github.com/KyleHaynes/graphfast)
+one function call. <br/>[Read the post →](2025_06_graphfast.qmd)<br/>[Visit repo →](https://github.com/KyleHaynes/graphfast)
+:::
+
+::: {.project-card}
+<span class="pkg-name">jsdiffr</span>
+
+Diffs in R!<br/>[Read the post →](2025_06_diffs_in_r.qmd)<br/>[Visit repo →](https://github.com/KyleHaynes/jsdiffr)
 :::
 
 :::
