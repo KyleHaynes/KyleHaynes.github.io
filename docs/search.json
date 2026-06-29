@@ -14,13 +14,6 @@
     "text": "What I work on\nMost data linkage problems reduce to the same question: do these two records describe the same real-world thing? Answering that well means treating records and shared values as a graph — connected components, not pairwise rules — and being deliberate about how string similarity is measured, since names, addresses, and identifiers are rarely typed the same way twice.\n\nData linkage — matching and deduplicating records across sources with no reliable shared key.\nGraph theory — connected components, clustering, and traversal as tools for resolving messy links.\nString matching — fuzzy and approximate matching for names, addresses, and free text."
   },
   {
-    "objectID": "index.html#how-it-connects",
-    "href": "index.html#how-it-connects",
-    "title": "Kyle Haynes",
-    "section": "How it connects",
-    "text": "How it connects\nThe packages below aren’t separate side projects — they’re components of the same linkage problem, which is a fitting thing to show as a graph.\n\n\n\n\n\n\n\n\nG\n\n\nKyle Haynes\n\nKyle Haynes\n\n\n\nQGSO · Data Integration\n\nQGSO · Data Integration\n\n\n\nKyle Haynes--QGSO · Data Integration\n\n\n\n\nData linkage\n\nData linkage\n\n\n\nKyle Haynes--Data linkage\n\n\n\n\nGraph theory\n\nGraph theory\n\n\n\nKyle Haynes--Graph theory\n\n\n\n\nString matching\n\nString matching\n\n\n\nKyle Haynes--String matching\n\n\n\n\nQGSO · Data Integration--Data linkage\n\n\n\n\ngnafr\n\ngnafr\n\n\n\nData linkage--gnafr\n\n\n\n\ngraphfast\n\ngraphfast\n\n\n\nData linkage--graphfast\n\n\n\n\nGraph theory--graphfast\n\n\n\n\nString matching--gnafr\n\n\n\n\nfast.string\n\nfast.string\n\n\n\nString matching--fast.string\n\n\n\n\ngnafr--fast.string\n\n\n\n\n\n\n\n\n\n\n\nGraphviz dependency graph — Kyle, his role, and the theory/package links between them."
-  },
-  {
     "objectID": "index.html#active-projects",
     "href": "index.html#active-projects",
     "title": "Kyle Haynes",
