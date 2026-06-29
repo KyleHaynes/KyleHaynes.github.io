@@ -1,6 +1,6 @@
 ---
 title: "Untangling messy records with `set_group_id()`"
-subtitle: "Same person, three different rows — graphfast finds them in one call"
+subtitle: "Clustering candidate matches across rows — graphfast does the linkage legwork in one call"
 ---
 
 ```{r}
@@ -18,17 +18,21 @@ This packages uses the `graphfast` package. [Visit repo →](https://github.com/
 
 ## The problem
 
-Real-world data is full of duplicates that don't *look* like duplicates. A
-customer signs up three times with three different names, but the same phone
-number creeps into two of those records and the same email into the other two.
-No single column ties all three rows together — but a **chain** of shared
-values does.
+Real-world data is full of records that *might* be duplicates without looking
+like it. Three rows with three different names could be the same person
+signing up three times — or they could just be three people who happen to
+share a household phone line. A shared phone number, on its own, isn't proof
+of identity; it's a clue. No single column ties all three rows together — but
+a **chain** of shared values is enough to flag them as candidates worth
+linking, and ultimately worth a human or a downstream rule deciding what to
+do with.
 
 This is exactly the kind of problem graph algorithms are good at, and it's why
 `set_group_id()` exists: treat every row and every value it contains as nodes
 in a graph, connect a row to each value it holds, and then ask "which nodes
 end up in the same connected component?" Rows in the same component get the
-same group id.
+same group id — not a verdict that they're the same entity, but a cluster of
+candidate links that a data linkage workflow can build on.
 
 ## Why it's quick to use
 
@@ -48,16 +52,19 @@ dt
 
 Rows 1 and 2 share a phone number. Row 5 doesn't share a phone or name with
 row 4 at all — but its email happens to be the same string as row 4's phone
-number. One call resolves the whole chain:
+number. One call surfaces the whole chain of candidates:
 
 ```{r}
 set_group_id(dt, cols = "phone|email", var_output_name = "gid")
 ```
 
-Rows 1 and 2 collapse into one group (matching phone numbers), and rows 4 and
-5 collapse into another (row 5's stray value matches row 4's phone), while
-row 3 (Jane Doe) stays on her own. That's the whole API: a data.table, a
-column pattern, done.
+Rows 1 and 2 are grouped together (matching phone numbers), and rows 4 and 5
+are grouped together (row 5's stray value matches row 4's phone), while row 3
+(Jane Doe) stays on her own. Grouping isn't the same as confirming they're the
+same person — it's `set_group_id()` doing the linkage step of finding which
+records are *worth* treating as a unit, so the harder identity question can be
+answered with that narrowed-down set rather than the whole table. That's the
+whole API: a data.table, a column pattern, done.
 
 ## Isolation: stopping false links across columns
 
@@ -124,6 +131,11 @@ it's obvious at a glance which shared value pulled which records together
 
 ## Takeaways
 
+`set_group_id()` doesn't decide that two records are the same entity — it
+facilitates that decision by doing the graph traversal that finds every
+record reachable through a chain of shared values, fast enough to run on the
+whole table instead of pairwise comparisons.
+
 - **Quick**: one function call, no manual graph wrangling, works directly on
   a `data.table` by reference.
 - **Flexible matching**: a regex (`cols`) picks up every relevant column at
@@ -132,7 +144,9 @@ it's obvious at a glance which shared value pulled which records together
   columns from cross-linking on a coincidental string match, while still
   letting genuinely shared values (within a set) merge records.
 - **Inspectable**: `return_edges = TRUE` gives you the *why* behind every
-  group, which is what makes the `visNetwork` plot above possible.
+  group, which is what makes the `visNetwork` plot above possible — and what
+  lets a reviewer (human or rule-based) judge whether a cluster really is one
+  entity before treating it as such.
 
 See `?set_group_id` and the [examples page](docs/examples.qmd) for more
 patterns, including `incomparables` for excluding sentinel values like
