@@ -25,7 +25,7 @@
     "href": "index.html#active-projects",
     "title": "Kyle Haynes",
     "section": "Active projects",
-    "text": "Active projects\n\n\ngnafr\nR package for fuzzy matching Australian addresses against the GNAF. Visit site →\n\n\nfast.string\nFast string processing utilities used as building blocks for matching and cleaning text fields. Visit site →\n\n\ngraphfast\nConnected-component grouping for data.table — resolve linkage chains with one function call. Read the post →"
+    "text": "Active projects\n\n\ngnafr\nR package for fuzzy matching Australian addresses against the GNAF. Visit site → Visit repo →\n\n\nfast.string\nFast string processing utilities used as building blocks for matching and cleaning text fields. Visit site → Visit repo →\n\n\ngraphfast\nConnected-component grouping for data.table — resolve linkage chains with one function call. Read the post → Visit repo →"
   },
   {
     "objectID": "2026_06_fast.string.html",
