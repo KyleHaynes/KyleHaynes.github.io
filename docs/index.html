@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -105,8 +70,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
-<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="styles.css">
@@ -246,177 +209,129 @@ spatial / addresses
 </section>
 <section id="how-it-connects" class="level2">
 <h2 class="anchored" data-anchor-id="how-it-connects">How it connects</h2>
-<p>The packages below aren’t separate side projects — they’re components of the same linkage problem, which is a fitting thing to show as a graph. Drag a node, hover an edge.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="51" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 50;"><span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>graphData <span class="op">=</span> ({</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="dt">nodes</span><span class="op">:</span> [</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="st">"Kyle Haynes"</span><span class="op">,</span> <span class="dt">group</span><span class="op">:</span> <span class="st">"me"</span> }<span class="op">,</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="st">"QGSO · Data Integration"</span><span class="op">,</span> <span class="dt">group</span><span class="op">:</span> <span class="st">"work"</span> }<span class="op">,</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="st">"Data linkage"</span><span class="op">,</span> <span class="dt">group</span><span class="op">:</span> <span class="st">"skill"</span> }<span class="op">,</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="st">"Graph theory"</span><span class="op">,</span> <span class="dt">group</span><span class="op">:</span> <span class="st">"skill"</span> }<span class="op">,</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="st">"String matching"</span><span class="op">,</span> <span class="dt">group</span><span class="op">:</span> <span class="st">"skill"</span> }<span class="op">,</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="st">"gnafr"</span><span class="op">,</span> <span class="dt">group</span><span class="op">:</span> <span class="st">"package"</span> }<span class="op">,</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="st">"fast.string"</span><span class="op">,</span> <span class="dt">group</span><span class="op">:</span> <span class="st">"package"</span> }<span class="op">,</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">id</span><span class="op">:</span> <span class="st">"graphfast"</span><span class="op">,</span> <span class="dt">group</span><span class="op">:</span> <span class="st">"package"</span> }</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>  <span class="dt">links</span><span class="op">:</span> [</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">source</span><span class="op">:</span> <span class="st">"Kyle Haynes"</span><span class="op">,</span> <span class="dt">target</span><span class="op">:</span> <span class="st">"QGSO · Data Integration"</span> }<span class="op">,</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">source</span><span class="op">:</span> <span class="st">"Kyle Haynes"</span><span class="op">,</span> <span class="dt">target</span><span class="op">:</span> <span class="st">"Data linkage"</span> }<span class="op">,</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">source</span><span class="op">:</span> <span class="st">"Kyle Haynes"</span><span class="op">,</span> <span class="dt">target</span><span class="op">:</span> <span class="st">"Graph theory"</span> }<span class="op">,</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">source</span><span class="op">:</span> <span class="st">"Kyle Haynes"</span><span class="op">,</span> <span class="dt">target</span><span class="op">:</span> <span class="st">"String matching"</span> }<span class="op">,</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">source</span><span class="op">:</span> <span class="st">"QGSO · Data Integration"</span><span class="op">,</span> <span class="dt">target</span><span class="op">:</span> <span class="st">"Data linkage"</span> }<span class="op">,</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">source</span><span class="op">:</span> <span class="st">"Data linkage"</span><span class="op">,</span> <span class="dt">target</span><span class="op">:</span> <span class="st">"gnafr"</span> }<span class="op">,</span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">source</span><span class="op">:</span> <span class="st">"Data linkage"</span><span class="op">,</span> <span class="dt">target</span><span class="op">:</span> <span class="st">"graphfast"</span> }<span class="op">,</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">source</span><span class="op">:</span> <span class="st">"Graph theory"</span><span class="op">,</span> <span class="dt">target</span><span class="op">:</span> <span class="st">"graphfast"</span> }<span class="op">,</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">source</span><span class="op">:</span> <span class="st">"String matching"</span><span class="op">,</span> <span class="dt">target</span><span class="op">:</span> <span class="st">"gnafr"</span> }<span class="op">,</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">source</span><span class="op">:</span> <span class="st">"String matching"</span><span class="op">,</span> <span class="dt">target</span><span class="op">:</span> <span class="st">"fast.string"</span> }<span class="op">,</span></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">source</span><span class="op">:</span> <span class="st">"gnafr"</span><span class="op">,</span> <span class="dt">target</span><span class="op">:</span> <span class="st">"fast.string"</span> }</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div id="ojs-cell-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
+<p>The packages below aren’t separate side projects — they’re components of the same linkage problem, which is a fitting thing to show as a graph.</p>
 <div class="graph-wrap">
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="82" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 81;"><span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>chart <span class="op">=</span> {</span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> height <span class="op">=</span> <span class="dv">380</span><span class="op">;</span></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> accent <span class="op">=</span> <span class="st">"#4a55a6"</span><span class="op">;</span></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ink <span class="op">=</span> <span class="st">"#2a2b2e"</span><span class="op">;</span></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> radius <span class="op">=</span> (d) <span class="kw">=&gt;</span></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>    d<span class="op">.</span><span class="at">group</span> <span class="op">===</span> <span class="st">"me"</span> <span class="op">?</span> <span class="dv">15</span> <span class="op">:</span> d<span class="op">.</span><span class="at">group</span> <span class="op">===</span> <span class="st">"package"</span> <span class="op">?</span> <span class="dv">9</span> <span class="op">:</span> <span class="dv">7</span><span class="op">;</span></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> fill <span class="op">=</span> (d) <span class="kw">=&gt;</span> (d<span class="op">.</span><span class="at">group</span> <span class="op">===</span> <span class="st">"me"</span> <span class="op">?</span> accent <span class="op">:</span> ink)<span class="op">;</span></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> links <span class="op">=</span> graphData<span class="op">.</span><span class="at">links</span><span class="op">.</span><span class="fu">map</span>((d) <span class="kw">=&gt;</span> ({ <span class="op">...</span>d }))<span class="op">;</span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nodes <span class="op">=</span> graphData<span class="op">.</span><span class="at">nodes</span><span class="op">.</span><span class="fu">map</span>((d) <span class="kw">=&gt;</span> ({ <span class="op">...</span>d }))<span class="op">;</span></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> hub <span class="op">=</span> nodes<span class="op">.</span><span class="fu">find</span>((d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">group</span> <span class="op">===</span> <span class="st">"me"</span>)<span class="op">;</span></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>  hub<span class="op">.</span><span class="at">fx</span> <span class="op">=</span> width <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>  hub<span class="op">.</span><span class="at">fy</span> <span class="op">=</span> height <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> simulation <span class="op">=</span> d3</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">forceSimulation</span>(nodes)</span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">force</span>(</span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>      <span class="st">"link"</span><span class="op">,</span></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>      d3<span class="op">.</span><span class="fu">forceLink</span>(links)<span class="op">.</span><span class="fu">id</span>((d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">id</span>)<span class="op">.</span><span class="fu">distance</span>(<span class="dv">130</span>)<span class="op">.</span><span class="fu">strength</span>(<span class="fl">0.45</span>)</span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">force</span>(<span class="st">"charge"</span><span class="op">,</span> d3<span class="op">.</span><span class="fu">forceManyBody</span>()<span class="op">.</span><span class="fu">strength</span>(<span class="op">-</span><span class="dv">320</span>))</span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">force</span>(<span class="st">"center"</span><span class="op">,</span> d3<span class="op">.</span><span class="fu">forceCenter</span>(width <span class="op">/</span> <span class="dv">2</span><span class="op">,</span> height <span class="op">/</span> <span class="dv">2</span>))</span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">force</span>(<span class="st">"collide"</span><span class="op">,</span> d3<span class="op">.</span><span class="fu">forceCollide</span>(<span class="dv">38</span>))</span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">force</span>(<span class="st">"x"</span><span class="op">,</span> d3<span class="op">.</span><span class="fu">forceX</span>(width <span class="op">/</span> <span class="dv">2</span>)<span class="op">.</span><span class="fu">strength</span>(<span class="fl">0.06</span>))</span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">force</span>(<span class="st">"y"</span><span class="op">,</span> d3<span class="op">.</span><span class="fu">forceY</span>(height <span class="op">/</span> <span class="dv">2</span>)<span class="op">.</span><span class="fu">strength</span>(<span class="fl">0.06</span>))</span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">tick</span>(<span class="dv">300</span>)<span class="op">;</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> svg <span class="op">=</span> d3</span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">create</span>(<span class="st">"svg"</span>)</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"viewBox"</span><span class="op">,</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> width<span class="op">,</span> height])</span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"width"</span><span class="op">,</span> <span class="st">"100%"</span>)</span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"height"</span><span class="op">,</span> height)</span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">style</span>(<span class="st">"max-width"</span><span class="op">,</span> <span class="st">"100%"</span>)</span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">style</span>(<span class="st">"font"</span><span class="op">,</span> <span class="st">"12px var(--bs-font-sans-serif, sans-serif)"</span>)<span class="op">;</span></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> link <span class="op">=</span> svg</span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">append</span>(<span class="st">"g"</span>)</span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">selectAll</span>(<span class="st">"line"</span>)</span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">data</span>(links)</span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">join</span>(<span class="st">"line"</span>)</span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"stroke"</span><span class="op">,</span> <span class="st">"#cfcdc2"</span>)</span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"stroke-width"</span><span class="op">,</span> <span class="fl">1.2</span>)<span class="op">;</span></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> node <span class="op">=</span> svg</span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">append</span>(<span class="st">"g"</span>)</span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">selectAll</span>(<span class="st">"circle"</span>)</span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">data</span>(nodes)</span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">join</span>(<span class="st">"circle"</span>)</span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"r"</span><span class="op">,</span> radius)</span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"fill"</span><span class="op">,</span> fill)</span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"stroke"</span><span class="op">,</span> <span class="st">"#faf9f6"</span>)</span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"stroke-width"</span><span class="op">,</span> <span class="fl">1.5</span>)</span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">style</span>(<span class="st">"cursor"</span><span class="op">,</span> <span class="st">"grab"</span>)</span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">call</span>(<span class="fu">drag</span>(simulation))<span class="op">;</span></span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> label <span class="op">=</span> svg</span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">append</span>(<span class="st">"g"</span>)</span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">selectAll</span>(<span class="st">"text"</span>)</span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">data</span>(nodes)</span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">join</span>(<span class="st">"text"</span>)</span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">text</span>((d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">id</span>)</span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"dy"</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> <span class="op">-</span><span class="fu">radius</span>(d) <span class="op">-</span> <span class="dv">6</span>)</span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"text-anchor"</span><span class="op">,</span> <span class="st">"middle"</span>)</span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"fill"</span><span class="op">,</span> <span class="st">"#4b4f56"</span>)</span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">style</span>(<span class="st">"pointer-events"</span><span class="op">,</span> <span class="st">"none"</span>)<span class="op">;</span></span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>  node</span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">on</span>(<span class="st">"pointerenter"</span><span class="op">,</span> (<span class="bu">event</span><span class="op">,</span> d) <span class="kw">=&gt;</span> {</span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>      link</span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">attr</span>(<span class="st">"stroke"</span><span class="op">,</span> (l) <span class="kw">=&gt;</span></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>          l<span class="op">.</span><span class="at">source</span><span class="op">.</span><span class="at">id</span> <span class="op">===</span> d<span class="op">.</span><span class="at">id</span> <span class="op">||</span> l<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">id</span> <span class="op">===</span> d<span class="op">.</span><span class="at">id</span> <span class="op">?</span> accent <span class="op">:</span> <span class="st">"#e9e7dd"</span></span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">attr</span>(<span class="st">"stroke-width"</span><span class="op">,</span> (l) <span class="kw">=&gt;</span></span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>          l<span class="op">.</span><span class="at">source</span><span class="op">.</span><span class="at">id</span> <span class="op">===</span> d<span class="op">.</span><span class="at">id</span> <span class="op">||</span> l<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">id</span> <span class="op">===</span> d<span class="op">.</span><span class="at">id</span> <span class="op">?</span> <span class="dv">2</span> <span class="op">:</span> <span class="fl">1.2</span></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>        )<span class="op">;</span></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">on</span>(<span class="st">"pointerleave"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>      link<span class="op">.</span><span class="fu">attr</span>(<span class="st">"stroke"</span><span class="op">,</span> <span class="st">"#cfcdc2"</span>)<span class="op">.</span><span class="fu">attr</span>(<span class="st">"stroke-width"</span><span class="op">,</span> <span class="fl">1.2</span>)<span class="op">;</span></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>  simulation<span class="op">.</span><span class="fu">on</span>(<span class="st">"tick"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>    link</span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">attr</span>(<span class="st">"x1"</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">source</span><span class="op">.</span><span class="at">x</span>)</span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">attr</span>(<span class="st">"y1"</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">source</span><span class="op">.</span><span class="at">y</span>)</span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">attr</span>(<span class="st">"x2"</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">x</span>)</span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">attr</span>(<span class="st">"y2"</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">y</span>)<span class="op">;</span></span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>    node<span class="op">.</span><span class="fu">attr</span>(<span class="st">"cx"</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">x</span>)<span class="op">.</span><span class="fu">attr</span>(<span class="st">"cy"</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>)<span class="op">;</span></span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>    label<span class="op">.</span><span class="fu">attr</span>(<span class="st">"x"</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">x</span>)<span class="op">.</span><span class="fu">attr</span>(<span class="st">"y"</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>)<span class="op">;</span></span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>  invalidation<span class="op">.</span><span class="fu">then</span>(() <span class="kw">=&gt;</span> simulation<span class="op">.</span><span class="fu">stop</span>())<span class="op">;</span></span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> svg<span class="op">.</span><span class="fu">node</span>()<span class="op">;</span></span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">drag</span>(simulation) {</span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">dragstarted</span>(<span class="bu">event</span><span class="op">,</span> d) {</span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="op">!</span><span class="bu">event</span><span class="op">.</span><span class="at">active</span>) simulation<span class="op">.</span><span class="fu">alphaTarget</span>(<span class="fl">0.3</span>)<span class="op">.</span><span class="fu">restart</span>()<span class="op">;</span></span>
-<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>    d<span class="op">.</span><span class="at">fx</span> <span class="op">=</span> d<span class="op">.</span><span class="at">x</span><span class="op">;</span></span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>    d<span class="op">.</span><span class="at">fy</span> <span class="op">=</span> d<span class="op">.</span><span class="at">y</span><span class="op">;</span></span>
-<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">dragged</span>(<span class="bu">event</span><span class="op">,</span> d) {</span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>    d<span class="op">.</span><span class="at">fx</span> <span class="op">=</span> <span class="bu">event</span><span class="op">.</span><span class="at">x</span><span class="op">;</span></span>
-<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>    d<span class="op">.</span><span class="at">fy</span> <span class="op">=</span> <span class="bu">event</span><span class="op">.</span><span class="at">y</span><span class="op">;</span></span>
-<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">dragended</span>(<span class="bu">event</span><span class="op">,</span> d) {</span>
-<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="op">!</span><span class="bu">event</span><span class="op">.</span><span class="at">active</span>) simulation<span class="op">.</span><span class="fu">alphaTarget</span>(<span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>    d<span class="op">.</span><span class="at">fx</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>    d<span class="op">.</span><span class="at">fy</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> d3</span>
-<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">drag</span>()</span>
-<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">on</span>(<span class="st">"start"</span><span class="op">,</span> dragstarted)</span>
-<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">on</span>(<span class="st">"drag"</span><span class="op">,</span> dragged)</span>
-<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">on</span>(<span class="st">"end"</span><span class="op">,</span> dragended)<span class="op">;</span></span>
-<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<div class="cell" data-fig-width="6" data-fig-height="4" data-layout-align="center">
+<div class="cell-output-display">
 <div>
-<div id="ojs-cell-2-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
+<p></p><figure class="figure"><p></p>
 <div>
-<div id="ojs-cell-2-2" data-nodetype="declaration">
-
+<svg width="576" height="384" viewbox="0.00 0.00 309.12 199.87" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 195.87)">
+<title>G</title>
+<!-- Kyle Haynes -->
+<g id="node1" class="node">
+<title>Kyle Haynes</title>
+<ellipse fill="#4a55a6" stroke="#faf9f6" stroke-width="1.5" cx="162.75" cy="-115.59" rx="16" ry="16"></ellipse>
+<text text-anchor="middle" x="115.87" y="-134.89" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#2a2b2e">Kyle Haynes</text>
+</g>
+<!-- QGSO · Data Integration -->
+<g id="node2" class="node">
+<title>QGSO · Data Integration</title>
+<ellipse fill="#2a2b2e" stroke="#faf9f6" stroke-width="1.5" cx="225.42" cy="-105.41" rx="11" ry="11"></ellipse>
+<text text-anchor="middle" x="152.66" y="-84.51" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#2a2b2e">QGSO · Data Integration</text>
+</g>
+<!-- Kyle Haynes&#45;&#45;QGSO · Data Integration -->
+<g id="edge1" class="edge">
+<title>Kyle Haynes--QGSO · Data Integration</title>
+<path fill="none" stroke="#cfcdc2" stroke-width="1.2" d="M178.56,-113.02C189.73,-111.21 204.42,-108.82 214.35,-107.21"></path>
+</g>
+<!-- Data linkage -->
+<g id="node3" class="node">
+<title>Data linkage</title>
+<ellipse fill="#2a2b2e" stroke="#faf9f6" stroke-width="1.5" cx="196.36" cy="-53.92" rx="10" ry="10"></ellipse>
+<text text-anchor="middle" x="155.79" y="-67.22" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#2a2b2e">Data linkage</text>
+</g>
+<!-- Kyle Haynes&#45;&#45;Data linkage -->
+<g id="edge2" class="edge">
+<title>Kyle Haynes--Data linkage</title>
+<path fill="none" stroke="#cfcdc2" stroke-width="1.2" d="M170.55,-101.29C176.98,-89.48 185.93,-73.07 191.42,-62.99"></path>
+</g>
+<!-- Graph theory -->
+<g id="node4" class="node">
+<title>Graph theory</title>
+<ellipse fill="#2a2b2e" stroke="#faf9f6" stroke-width="1.5" cx="229.71" cy="-168.67" rx="10" ry="10"></ellipse>
+<text text-anchor="middle" x="187.61" y="-181.97" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#2a2b2e">Graph theory</text>
+</g>
+<!-- Kyle Haynes&#45;&#45;Graph theory -->
+<g id="edge3" class="edge">
+<title>Kyle Haynes--Graph theory</title>
+<path fill="none" stroke="#cfcdc2" stroke-width="1.2" d="M175.34,-125.58C188.98,-136.39 210.32,-153.3 221.79,-162.39"></path>
+</g>
+<!-- String matching -->
+<g id="node5" class="node">
+<title>String matching</title>
+<ellipse fill="#2a2b2e" stroke="#faf9f6" stroke-width="1.5" cx="137.01" cy="-11.2" rx="10" ry="10"></ellipse>
+<text text-anchor="middle" x="165.23" y="-24.5" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#2a2b2e">String matching</text>
+</g>
+<!-- Kyle Haynes&#45;&#45;String matching -->
+<g id="edge4" class="edge">
+<title>Kyle Haynes--String matching</title>
+<path fill="none" stroke="#cfcdc2" stroke-width="1.2" d="M158.84,-99.74C153.44,-77.84 143.86,-38.98 139.41,-20.92"></path>
+</g>
+<!-- QGSO · Data Integration&#45;&#45;Data linkage -->
+<g id="edge5" class="edge">
+<title>QGSO · Data Integration--Data linkage</title>
+<path fill="none" stroke="#cfcdc2" stroke-width="1.2" d="M219.81,-95.48C214.47,-86.01 206.5,-71.89 201.37,-62.79"></path>
+</g>
+<!-- gnafr -->
+<g id="node6" class="node">
+<title>gnafr</title>
+<ellipse fill="#2a2b2e" stroke="#faf9f6" stroke-width="1.5" cx="67.42" cy="-115.21" rx="11.5" ry="11.5"></ellipse>
+<text text-anchor="middle" x="43.39" y="-130.01" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#2a2b2e">gnafr</text>
+</g>
+<!-- Data linkage&#45;&#45;gnafr -->
+<g id="edge6" class="edge">
+<title>Data linkage--gnafr</title>
+<path fill="none" stroke="#cfcdc2" stroke-width="1.2" d="M187.09,-58.33C163.76,-69.42 102.74,-98.42 78.04,-110.16"></path>
+</g>
+<!-- graphfast -->
+<g id="node8" class="node">
+<title>graphfast</title>
+<ellipse fill="#2a2b2e" stroke="#faf9f6" stroke-width="1.5" cx="289.62" cy="-69.64" rx="11.5" ry="11.5"></ellipse>
+<text text-anchor="middle" x="255.19" y="-84.44" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#2a2b2e">graphfast</text>
+</g>
+<!-- Data linkage&#45;&#45;graphfast -->
+<g id="edge7" class="edge">
+<title>Data linkage--graphfast</title>
+<path fill="none" stroke="#cfcdc2" stroke-width="1.2" d="M206.34,-55.6C223.82,-58.55 259.86,-64.62 278.27,-67.73"></path>
+</g>
+<!-- Graph theory&#45;&#45;graphfast -->
+<g id="edge8" class="edge">
+<title>Graph theory--graphfast</title>
+<path fill="none" stroke="#cfcdc2" stroke-width="1.2" d="M235.03,-159.88C246.14,-141.52 271.76,-99.16 283.52,-79.72"></path>
+</g>
+<!-- String matching&#45;&#45;gnafr -->
+<g id="edge9" class="edge">
+<title>String matching--gnafr</title>
+<path fill="none" stroke="#cfcdc2" stroke-width="1.2" d="M131.32,-19.71C118.53,-38.82 87.59,-85.07 74,-105.38"></path>
+</g>
+<!-- fast.string -->
+<g id="node7" class="node">
+<title>fast.string</title>
+<ellipse fill="#2a2b2e" stroke="#faf9f6" stroke-width="1.5" cx="59.18" cy="-11.5" rx="11.5" ry="11.5"></ellipse>
+<text text-anchor="middle" x="23.84" y="-26.3" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#2a2b2e">fast.string</text>
+</g>
+<!-- String matching&#45;&#45;fast.string -->
+<g id="edge10" class="edge">
+<title>String matching--fast.string</title>
+<path fill="none" stroke="#cfcdc2" stroke-width="1.2" d="M126.84,-11.24C112.42,-11.29 86.1,-11.4 70.89,-11.45"></path>
+</g>
+<!-- gnafr&#45;&#45;fast.string -->
+<g id="edge11" class="edge">
+<title>gnafr--fast.string</title>
+<path fill="none" stroke="#cfcdc2" stroke-width="1.2" d="M66.51,-103.71C64.93,-83.78 61.69,-43.02 60.1,-23.05"></path>
+</g>
+</g>
+</svg>
 </div>
+<p></p></figure><p></p>
 </div>
 </div>
 </div>
 </div>
 <p class="graph-caption">
-Force-directed graph (Observable JS + d3-force) — Kyle, his role, and the theory/package links between them.
+Graphviz dependency graph — Kyle, his role, and the theory/package links between them.
 </p>
 </section>
 <section id="active-projects" class="level2">
@@ -424,11 +339,11 @@ Force-directed graph (Observable JS + d3-force) — Kyle, his role, and the theo
 <div class="project-grid">
 <div class="project-card">
 <p><span class="pkg-name">gnafr</span></p>
-<p>R package for <em>fuzzy matching</em> Australian addresses against GNAF.<br> <a href="https://kylehaynes.github.io/gnafr/">Visit site →</a><br><a href="https://github.com/KyleHaynes/gnafr">Visit repo →</a></p>
+<p>R package for <em>fuzzy matching</em> Australian addresses against GNAF.<br> <a href="https://kylehaynes.github.io/gnafr/">Visit doco →</a><br><a href="https://github.com/KyleHaynes/gnafr">Visit repo →</a></p>
 </div>
 <div class="project-card">
 <p><span class="pkg-name">fast.string</span></p>
-<p><em>Fast</em> string processing utilities used as building blocks for matching and cleaning text fields. <br><a href="https://kylehaynes.github.io/fast.string/">Visit site →</a><br><a href="https://github.com/KyleHaynes/fast.string">Visit repo →</a></p>
+<p><em>Fast</em> string processing utilities used as building blocks for matching and cleaning text fields. <br><a href="https://kylehaynes.github.io/fast.string/">Visit doco →</a><br><a href="https://github.com/KyleHaynes/fast.string">Visit repo →</a></p>
 </div>
 <div class="project-card">
 <p><span class="pkg-name">graphfast</span></p>
@@ -444,17 +359,6 @@ Force-directed graph (Observable JS + d3-force) — Kyle, his role, and the theo
 </section>
 
 </main> <!-- /main -->
-<script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImdyYXBoRGF0YSA9ICh7XG4gIG5vZGVzOiBbXG4gICAgeyBpZDogXCJLeWxlIEhheW5lc1wiLCBncm91cDogXCJtZVwiIH0sXG4gICAgeyBpZDogXCJRR1NPIMK3IERhdGEgSW50ZWdyYXRpb25cIiwgZ3JvdXA6IFwid29ya1wiIH0sXG4gICAgeyBpZDogXCJEYXRhIGxpbmthZ2VcIiwgZ3JvdXA6IFwic2tpbGxcIiB9LFxuICAgIHsgaWQ6IFwiR3JhcGggdGhlb3J5XCIsIGdyb3VwOiBcInNraWxsXCIgfSxcbiAgICB7IGlkOiBcIlN0cmluZyBtYXRjaGluZ1wiLCBncm91cDogXCJza2lsbFwiIH0sXG4gICAgeyBpZDogXCJnbmFmclwiLCBncm91cDogXCJwYWNrYWdlXCIgfSxcbiAgICB7IGlkOiBcImZhc3Quc3RyaW5nXCIsIGdyb3VwOiBcInBhY2thZ2VcIiB9LFxuICAgIHsgaWQ6IFwiZ3JhcGhmYXN0XCIsIGdyb3VwOiBcInBhY2thZ2VcIiB9XG4gIF0sXG4gIGxpbmtzOiBbXG4gICAgeyBzb3VyY2U6IFwiS3lsZSBIYXluZXNcIiwgdGFyZ2V0OiBcIlFHU08gwrcgRGF0YSBJbnRlZ3JhdGlvblwiIH0sXG4gICAgeyBzb3VyY2U6IFwiS3lsZSBIYXluZXNcIiwgdGFyZ2V0OiBcIkRhdGEgbGlua2FnZVwiIH0sXG4gICAgeyBzb3VyY2U6IFwiS3lsZSBIYXluZXNcIiwgdGFyZ2V0OiBcIkdyYXBoIHRoZW9yeVwiIH0sXG4gICAgeyBzb3VyY2U6IFwiS3lsZSBIYXluZXNcIiwgdGFyZ2V0OiBcIlN0cmluZyBtYXRjaGluZ1wiIH0sXG4gICAgeyBzb3VyY2U6IFwiUUdTTyDCtyBEYXRhIEludGVncmF0aW9uXCIsIHRhcmdldDogXCJEYXRhIGxpbmthZ2VcIiB9LFxuICAgIHsgc291cmNlOiBcIkRhdGEgbGlua2FnZVwiLCB0YXJnZXQ6IFwiZ25hZnJcIiB9LFxuICAgIHsgc291cmNlOiBcIkRhdGEgbGlua2FnZVwiLCB0YXJnZXQ6IFwiZ3JhcGhmYXN0XCIgfSxcbiAgICB7IHNvdXJjZTogXCJHcmFwaCB0aGVvcnlcIiwgdGFyZ2V0OiBcImdyYXBoZmFzdFwiIH0sXG4gICAgeyBzb3VyY2U6IFwiU3RyaW5nIG1hdGNoaW5nXCIsIHRhcmdldDogXCJnbmFmclwiIH0sXG4gICAgeyBzb3VyY2U6IFwiU3RyaW5nIG1hdGNoaW5nXCIsIHRhcmdldDogXCJmYXN0LnN0cmluZ1wiIH0sXG4gICAgeyBzb3VyY2U6IFwiZ25hZnJcIiwgdGFyZ2V0OiBcImZhc3Quc3RyaW5nXCIgfVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiY2hhcnQgPSB7XG4gIGNvbnN0IGhlaWdodCA9IDM4MDtcbiAgY29uc3QgYWNjZW50ID0gXCIjNGE1NWE2XCI7XG4gIGNvbnN0IGluayA9IFwiIzJhMmIyZVwiO1xuXG4gIGNvbnN0IHJhZGl1cyA9IChkKSA9PlxuICAgIGQuZ3JvdXAgPT09IFwibWVcIiA/IDE1IDogZC5ncm91cCA9PT0gXCJwYWNrYWdlXCIgPyA5IDogNztcblxuICBjb25zdCBmaWxsID0gKGQpID0+IChkLmdyb3VwID09PSBcIm1lXCIgPyBhY2NlbnQgOiBpbmspO1xuXG4gIGNvbnN0IGxpbmtzID0gZ3JhcGhEYXRhLmxpbmtzLm1hcCgoZCkgPT4gKHsgLi4uZCB9KSk7XG4gIGNvbnN0IG5vZGVzID0gZ3JhcGhEYXRhLm5vZGVzLm1hcCgoZCkgPT4gKHsgLi4uZCB9KSk7XG5cbiAgY29uc3QgaHViID0gbm9kZXMuZmluZCgoZCkgPT4gZC5ncm91cCA9PT0gXCJtZVwiKTtcbiAgaHViLmZ4ID0gd2lkdGggLyAyO1xuICBodWIuZnkgPSBoZWlnaHQgLyAyO1xuXG4gIGNvbnN0IHNpbXVsYXRpb24gPSBkM1xuICAgIC5mb3JjZVNpbXVsYXRpb24obm9kZXMpXG4gICAgLmZvcmNlKFxuICAgICAgXCJsaW5rXCIsXG4gICAgICBkMy5mb3JjZUxpbmsobGlua3MpLmlkKChkKSA9PiBkLmlkKS5kaXN0YW5jZSgxMzApLnN0cmVuZ3RoKDAuNDUpXG4gICAgKVxuICAgIC5mb3JjZShcImNoYXJnZVwiLCBkMy5mb3JjZU1hbnlCb2R5KCkuc3RyZW5ndGgoLTMyMCkpXG4gICAgLmZvcmNlKFwiY2VudGVyXCIsIGQzLmZvcmNlQ2VudGVyKHdpZHRoIC8gMiwgaGVpZ2h0IC8gMikpXG4gICAgLmZvcmNlKFwiY29sbGlkZVwiLCBkMy5mb3JjZUNvbGxpZGUoMzgpKVxuICAgIC5mb3JjZShcInhcIiwgZDMuZm9yY2VYKHdpZHRoIC8gMikuc3RyZW5ndGgoMC4wNikpXG4gICAgLmZvcmNlKFwieVwiLCBkMy5mb3JjZVkoaGVpZ2h0IC8gMikuc3RyZW5ndGgoMC4wNikpXG4gICAgLnRpY2soMzAwKTtcblxuICBjb25zdCBzdmcgPSBkM1xuICAgIC5jcmVhdGUoXCJzdmdcIilcbiAgICAuYXR0cihcInZpZXdCb3hcIiwgWzAsIDAsIHdpZHRoLCBoZWlnaHRdKVxuICAgIC5hdHRyKFwid2lkdGhcIiwgXCIxMDAlXCIpXG4gICAgLmF0dHIoXCJoZWlnaHRcIiwgaGVpZ2h0KVxuICAgIC5zdHlsZShcIm1heC13aWR0aFwiLCBcIjEwMCVcIilcbiAgICAuc3R5bGUoXCJmb250XCIsIFwiMTJweCB2YXIoLS1icy1mb250LXNhbnMtc2VyaWYsIHNhbnMtc2VyaWYpXCIpO1xuXG4gIGNvbnN0IGxpbmsgPSBzdmdcbiAgICAuYXBwZW5kKFwiZ1wiKVxuICAgIC5zZWxlY3RBbGwoXCJsaW5lXCIpXG4gICAgLmRhdGEobGlua3MpXG4gICAgLmpvaW4oXCJsaW5lXCIpXG4gICAgLmF0dHIoXCJzdHJva2VcIiwgXCIjY2ZjZGMyXCIpXG4gICAgLmF0dHIoXCJzdHJva2Utd2lkdGhcIiwgMS4yKTtcblxuICBjb25zdCBub2RlID0gc3ZnXG4gICAgLmFwcGVuZChcImdcIilcbiAgICAuc2VsZWN0QWxsKFwiY2lyY2xlXCIpXG4gICAgLmRhdGEobm9kZXMpXG4gICAgLmpvaW4oXCJjaXJjbGVcIilcbiAgICAuYXR0cihcInJcIiwgcmFkaXVzKVxuICAgIC5hdHRyKFwiZmlsbFwiLCBmaWxsKVxuICAgIC5hdHRyKFwic3Ryb2tlXCIsIFwiI2ZhZjlmNlwiKVxuICAgIC5hdHRyKFwic3Ryb2tlLXdpZHRoXCIsIDEuNSlcbiAgICAuc3R5bGUoXCJjdXJzb3JcIiwgXCJncmFiXCIpXG4gICAgLmNhbGwoZHJhZyhzaW11bGF0aW9uKSk7XG5cbiAgY29uc3QgbGFiZWwgPSBzdmdcbiAgICAuYXBwZW5kKFwiZ1wiKVxuICAgIC5zZWxlY3RBbGwoXCJ0ZXh0XCIpXG4gICAgLmRhdGEobm9kZXMpXG4gICAgLmpvaW4oXCJ0ZXh0XCIpXG4gICAgLnRleHQoKGQpID0+IGQuaWQpXG4gICAgLmF0dHIoXCJkeVwiLCAoZCkgPT4gLXJhZGl1cyhkKSAtIDYpXG4gICAgLmF0dHIoXCJ0ZXh0LWFuY2hvclwiLCBcIm1pZGRsZVwiKVxuICAgIC5hdHRyKFwiZmlsbFwiLCBcIiM0YjRmNTZcIilcbiAgICAuc3R5bGUoXCJwb2ludGVyLWV2ZW50c1wiLCBcIm5vbmVcIik7XG5cbiAgbm9kZVxuICAgIC5vbihcInBvaW50ZXJlbnRlclwiLCAoZXZlbnQsIGQpID0+IHtcbiAgICAgIGxpbmtcbiAgICAgICAgLmF0dHIoXCJzdHJva2VcIiwgKGwpID0+XG4gICAgICAgICAgbC5zb3VyY2UuaWQgPT09IGQuaWQgfHwgbC50YXJnZXQuaWQgPT09IGQuaWQgPyBhY2NlbnQgOiBcIiNlOWU3ZGRcIlxuICAgICAgICApXG4gICAgICAgIC5hdHRyKFwic3Ryb2tlLXdpZHRoXCIsIChsKSA9PlxuICAgICAgICAgIGwuc291cmNlLmlkID09PSBkLmlkIHx8IGwudGFyZ2V0LmlkID09PSBkLmlkID8gMiA6IDEuMlxuICAgICAgICApO1xuICAgIH0pXG4gICAgLm9uKFwicG9pbnRlcmxlYXZlXCIsICgpID0+IHtcbiAgICAgIGxpbmsuYXR0cihcInN0cm9rZVwiLCBcIiNjZmNkYzJcIikuYXR0cihcInN0cm9rZS13aWR0aFwiLCAxLjIpO1xuICAgIH0pO1xuXG4gIHNpbXVsYXRpb24ub24oXCJ0aWNrXCIsICgpID0+IHtcbiAgICBsaW5rXG4gICAgICAuYXR0cihcIngxXCIsIChkKSA9PiBkLnNvdXJjZS54KVxuICAgICAgLmF0dHIoXCJ5MVwiLCAoZCkgPT4gZC5zb3VyY2UueSlcbiAgICAgIC5hdHRyKFwieDJcIiwgKGQpID0+IGQudGFyZ2V0LngpXG4gICAgICAuYXR0cihcInkyXCIsIChkKSA9PiBkLnRhcmdldC55KTtcbiAgICBub2RlLmF0dHIoXCJjeFwiLCAoZCkgPT4gZC54KS5hdHRyKFwiY3lcIiwgKGQpID0+IGQueSk7XG4gICAgbGFiZWwuYXR0cihcInhcIiwgKGQpID0+IGQueCkuYXR0cihcInlcIiwgKGQpID0+IGQueSk7XG4gIH0pO1xuXG4gIGludmFsaWRhdGlvbi50aGVuKCgpID0+IHNpbXVsYXRpb24uc3RvcCgpKTtcbiAgcmV0dXJuIHN2Zy5ub2RlKCk7XG59XG5cbmZ1bmN0aW9uIGRyYWcoc2ltdWxhdGlvbikge1xuICBmdW5jdGlvbiBkcmFnc3RhcnRlZChldmVudCwgZCkge1xuICAgIGlmICghZXZlbnQuYWN0aXZlKSBzaW11bGF0aW9uLmFscGhhVGFyZ2V0KDAuMykucmVzdGFydCgpO1xuICAgIGQuZnggPSBkLng7XG4gICAgZC5meSA9IGQueTtcbiAgfVxuICBmdW5jdGlvbiBkcmFnZ2VkKGV2ZW50LCBkKSB7XG4gICAgZC5meCA9IGV2ZW50Lng7XG4gICAgZC5meSA9IGV2ZW50Lnk7XG4gIH1cbiAgZnVuY3Rpb24gZHJhZ2VuZGVkKGV2ZW50LCBkKSB7XG4gICAgaWYgKCFldmVudC5hY3RpdmUpIHNpbXVsYXRpb24uYWxwaGFUYXJnZXQoMCk7XG4gICAgZC5meCA9IG51bGw7XG4gICAgZC5meSA9IG51bGw7XG4gIH1cbiAgcmV0dXJuIGQzXG4gICAgLmRyYWcoKVxuICAgIC5vbihcInN0YXJ0XCIsIGRyYWdzdGFydGVkKVxuICAgIC5vbihcImRyYWdcIiwgZHJhZ2dlZClcbiAgICAub24oXCJlbmRcIiwgZHJhZ2VuZGVkKTtcbn1cbiJ9XX0=
-</script>
-<script type="module">
-if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../..";
-window._ojs.paths.runtimeToRoot = "../..";
-window._ojs.paths.docToRoot = "";
-window._ojs.selfContained = false;
-window._ojs.runtime.interpretFromScriptTags();
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

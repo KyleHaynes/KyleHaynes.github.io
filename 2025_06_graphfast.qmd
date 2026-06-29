@@ -52,7 +52,6 @@ number. One call resolves the whole chain:
 
 ```{r}
 set_group_id(dt, cols = "phone|email", var_output_name = "gid")
-dt
 ```
 
 Rows 1 and 2 collapse into one group (matching phone numbers), and rows 4 and
@@ -75,7 +74,6 @@ set**.
 ```{r}
 dt2 <- copy(dt)[, gid := NULL]
 set_group_id(dt2, isolate = list("phone", "email"))
-dt2
 ```
 
 With `phone` and `email` isolated from each other, row 5's stray value no
