@@ -1,1 +1,87 @@
-/* css styles */
+/* component styles, layered on top of theme.scss */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.6rem;
+}
+
+.hero .kicker {
+  font-family: var(--font-monospace, "IBM Plex Mono", monospace);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.hero .role-line {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag-row li {
+  border: 1px solid var(--line);
+  background: var(--paper-dim);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.9rem;
+  margin: 1.2rem 0;
+}
+
+.project-card {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.95rem 1.05rem;
+  background: var(--paper-dim);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.project-card .pkg-name {
+  font-family: var(--font-monospace, "IBM Plex Mono", monospace);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.project-card p {
+  margin: 0.35rem 0 0;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.graph-wrap {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper-dim);
+  padding: 0.5rem 0.5rem 0.2rem;
+  margin: 1rem 0 0.4rem;
+}
+
+.graph-caption {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  text-align: center;
+  margin: 0.3rem 0 1.4rem;
+}
+

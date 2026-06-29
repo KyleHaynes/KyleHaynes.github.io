@@ -4,28 +4,28 @@
     "href": "index.html",
     "title": "Kyle Haynes",
     "section": "",
-    "text": "Hi — this site is a small portfolio of work in R, spatial analysis, and address matching.\n\n\n\ngnafr — active package for fuzzy matching Australian addresses.\nfast.string — fast string processing utilities and tools.\n\n\n\n\n\nAbout\nGNAFR overview\nRoyal Street Names in Brisbane City\nFlextables in Quarto\nHello world demo\n\n\n\n\nThis site is maintained in Quarto and published to GitHub Pages from the docs/ folder. The interactive app content has been removed so the site stays focused on published Quarto pages.\n```\nasdas\n\nasdas"
+    "text": "Data analyst · Brisbane, Australia\n\n\nData Integration team, Queensland Government Statistician’s Office (QGSO)\nI work on data linkage — joining records across data sets that don’t share a clean key — which pulls in a fairly specific mix of theory: graph theory for the connections between records, and string matching for the fuzzy, almost-but-not-quite-identical values that connect them.\n\n\ndata linkage\n\n\ngraph theory\n\n\nstring matching\n\n\nR & data.table\n\n\nspatial / addresses"
+  },
+  {
+    "objectID": "index.html#what-i-work-on",
+    "href": "index.html#what-i-work-on",
+    "title": "Kyle Haynes",
+    "section": "What I work on",
+    "text": "What I work on\nMost data linkage problems reduce to the same question: do these two records describe the same real-world thing? Answering that well means treating records and shared values as a graph — connected components, not pairwise rules — and being deliberate about how string similarity is measured, since names, addresses, and identifiers are rarely typed the same way twice.\n\nData linkage — matching and deduplicating records across sources with no reliable shared key.\nGraph theory — connected components, clustering, and traversal as tools for resolving messy links.\nString matching — fuzzy and approximate matching for names, addresses, and free text."
+  },
+  {
+    "objectID": "index.html#how-it-connects",
+    "href": "index.html#how-it-connects",
+    "title": "Kyle Haynes",
+    "section": "How it connects",
+    "text": "How it connects\nThe packages below aren’t separate side projects — they’re components of the same linkage problem, which is a fitting thing to show as a graph. Drag a node, hover an edge.\n\ngraphData = ({\n  nodes: [\n    { id: \"Kyle Haynes\", group: \"me\" },\n    { id: \"QGSO · Data Integration\", group: \"work\" },\n    { id: \"Data linkage\", group: \"skill\" },\n    { id: \"Graph theory\", group: \"skill\" },\n    { id: \"String matching\", group: \"skill\" },\n    { id: \"gnafr\", group: \"package\" },\n    { id: \"fast.string\", group: \"package\" },\n    { id: \"graphfast\", group: \"package\" }\n  ],\n  links: [\n    { source: \"Kyle Haynes\", target: \"QGSO · Data Integration\" },\n    { source: \"Kyle Haynes\", target: \"Data linkage\" },\n    { source: \"Kyle Haynes\", target: \"Graph theory\" },\n    { source: \"Kyle Haynes\", target: \"String matching\" },\n    { source: \"QGSO · Data Integration\", target: \"Data linkage\" },\n    { source: \"Data linkage\", target: \"gnafr\" },\n    { source: \"Data linkage\", target: \"graphfast\" },\n    { source: \"Graph theory\", target: \"graphfast\" },\n    { source: \"String matching\", target: \"gnafr\" },\n    { source: \"String matching\", target: \"fast.string\" },\n    { source: \"gnafr\", target: \"fast.string\" }\n  ]\n})\n\n\n\n\n\n\n\n\nchart = {\n  const height = 380;\n  const accent = \"#4a55a6\";\n  const ink = \"#2a2b2e\";\n\n  const radius = (d) =&gt;\n    d.group === \"me\" ? 15 : d.group === \"package\" ? 9 : 7;\n\n  const fill = (d) =&gt; (d.group === \"me\" ? accent : ink);\n\n  const links = graphData.links.map((d) =&gt; ({ ...d }));\n  const nodes = graphData.nodes.map((d) =&gt; ({ ...d }));\n\n  const hub = nodes.find((d) =&gt; d.group === \"me\");\n  hub.fx = width / 2;\n  hub.fy = height / 2;\n\n  const simulation = d3\n    .forceSimulation(nodes)\n    .force(\n      \"link\",\n      d3.forceLink(links).id((d) =&gt; d.id).distance(130).strength(0.45)\n    )\n    .force(\"charge\", d3.forceManyBody().strength(-320))\n    .force(\"center\", d3.forceCenter(width / 2, height / 2))\n    .force(\"collide\", d3.forceCollide(38))\n    .force(\"x\", d3.forceX(width / 2).strength(0.06))\n    .force(\"y\", d3.forceY(height / 2).strength(0.06))\n    .tick(300);\n\n  const svg = d3\n    .create(\"svg\")\n    .attr(\"viewBox\", [0, 0, width, height])\n    .attr(\"width\", \"100%\")\n    .attr(\"height\", height)\n    .style(\"max-width\", \"100%\")\n    .style(\"font\", \"12px var(--bs-font-sans-serif, sans-serif)\");\n\n  const link = svg\n    .append(\"g\")\n    .selectAll(\"line\")\n    .data(links)\n    .join(\"line\")\n    .attr(\"stroke\", \"#cfcdc2\")\n    .attr(\"stroke-width\", 1.2);\n\n  const node = svg\n    .append(\"g\")\n    .selectAll(\"circle\")\n    .data(nodes)\n    .join(\"circle\")\n    .attr(\"r\", radius)\n    .attr(\"fill\", fill)\n    .attr(\"stroke\", \"#faf9f6\")\n    .attr(\"stroke-width\", 1.5)\n    .style(\"cursor\", \"grab\")\n    .call(drag(simulation));\n\n  const label = svg\n    .append(\"g\")\n    .selectAll(\"text\")\n    .data(nodes)\n    .join(\"text\")\n    .text((d) =&gt; d.id)\n    .attr(\"dy\", (d) =&gt; -radius(d) - 6)\n    .attr(\"text-anchor\", \"middle\")\n    .attr(\"fill\", \"#4b4f56\")\n    .style(\"pointer-events\", \"none\");\n\n  node\n    .on(\"pointerenter\", (event, d) =&gt; {\n      link\n        .attr(\"stroke\", (l) =&gt;\n          l.source.id === d.id || l.target.id === d.id ? accent : \"#e9e7dd\"\n        )\n        .attr(\"stroke-width\", (l) =&gt;\n          l.source.id === d.id || l.target.id === d.id ? 2 : 1.2\n        );\n    })\n    .on(\"pointerleave\", () =&gt; {\n      link.attr(\"stroke\", \"#cfcdc2\").attr(\"stroke-width\", 1.2);\n    });\n\n  simulation.on(\"tick\", () =&gt; {\n    link\n      .attr(\"x1\", (d) =&gt; d.source.x)\n      .attr(\"y1\", (d) =&gt; d.source.y)\n      .attr(\"x2\", (d) =&gt; d.target.x)\n      .attr(\"y2\", (d) =&gt; d.target.y);\n    node.attr(\"cx\", (d) =&gt; d.x).attr(\"cy\", (d) =&gt; d.y);\n    label.attr(\"x\", (d) =&gt; d.x).attr(\"y\", (d) =&gt; d.y);\n  });\n\n  invalidation.then(() =&gt; simulation.stop());\n  return svg.node();\n}\n\nfunction drag(simulation) {\n  function dragstarted(event, d) {\n    if (!event.active) simulation.alphaTarget(0.3).restart();\n    d.fx = d.x;\n    d.fy = d.y;\n  }\n  function dragged(event, d) {\n    d.fx = event.x;\n    d.fy = event.y;\n  }\n  function dragended(event, d) {\n    if (!event.active) simulation.alphaTarget(0);\n    d.fx = null;\n    d.fy = null;\n  }\n  return d3\n    .drag()\n    .on(\"start\", dragstarted)\n    .on(\"drag\", dragged)\n    .on(\"end\", dragended);\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForce-directed graph (Observable JS + d3-force) — Kyle, his role, and the theory/package links between them."
   },
   {
     "objectID": "index.html#active-projects",
     "href": "index.html#active-projects",
     "title": "Kyle Haynes",
-    "section": "",
-    "text": "gnafr — active package for fuzzy matching Australian addresses.\nfast.string — fast string processing utilities and tools."
-  },
-  {
-    "objectID": "index.html#explore-this-site",
-    "href": "index.html#explore-this-site",
-    "title": "Kyle Haynes",
-    "section": "",
-    "text": "About\nGNAFR overview\nRoyal Street Names in Brisbane City\nFlextables in Quarto\nHello world demo"
-  },
-  {
-    "objectID": "index.html#notes",
-    "href": "index.html#notes",
-    "title": "Kyle Haynes",
-    "section": "",
-    "text": "This site is maintained in Quarto and published to GitHub Pages from the docs/ folder. The interactive app content has been removed so the site stays focused on published Quarto pages.\n```\nasdas\n\nasdas"
+    "section": "Active projects",
+    "text": "Active projects\n\n\ngnafr\nR package for fuzzy matching Australian addresses against the GNAF. Visit site →\n\n\nfast.string\nFast string processing utilities used as building blocks for matching and cleaning text fields. Visit site →\n\n\ngraphfast\nConnected-component grouping for data.table — resolve linkage chains with one function call. Read the post →"
   },
   {
     "objectID": "2026_06_fast.string.html",

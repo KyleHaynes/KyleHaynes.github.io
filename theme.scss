@@ -1,0 +1,110 @@
+/*-- scss:defaults --*/
+
+// Palette — warm ink on a soft paper background, one accent used sparingly.
+$ink:        #1a1b1e;
+$ink-soft:   #4b4f56;
+$paper:      #faf9f6;
+$paper-dim:  #f1efe9;
+$line:       #e4e1d8;
+$accent:     #4a55a6;
+$accent-dim: #ced2ea;
+
+$body-bg:     $paper;
+$body-color:  $ink;
+$primary:     $accent;
+$link-color:  $accent;
+
+$font-family-sans-serif: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+$font-family-monospace:  "IBM Plex Mono", SFMono-Regular, Consolas, monospace;
+
+$headings-font-weight: 600;
+$headings-color:       $ink;
+$h2-font-size:          1.5rem;
+$h3-font-size:          1.15rem;
+
+$navbar-bg: $paper;
+$navbar-fg: $ink;
+$navbar-hl: $accent;
+
+$toc-color:        $accent;
+$toc-font-size:    0.82rem;
+
+$code-block-bg:    $paper-dim;
+$code-color:       #8a4b2a;
+
+$border-color:     $line;
+$border-radius:    0.25rem;
+
+$btn-border-radius: 0.25rem;
+
+/*-- scss:rules --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --ink: #{$ink};
+  --ink-soft: #{$ink-soft};
+  --paper: #{$paper};
+  --paper-dim: #{$paper-dim};
+  --line: #{$line};
+  --accent: #{$accent};
+  --accent-dim: #{$accent-dim};
+}
+
+body {
+  letter-spacing: 0.1px;
+}
+
+.navbar {
+  border-bottom: 1px solid var(--line);
+  box-shadow: none !important;
+}
+
+.navbar-title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.navbar .nav-link {
+  font-size: 0.92rem;
+}
+
+#title-block-header h1.title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+main {
+  line-height: 1.65;
+}
+
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: $ink;
+}
+
+h2 {
+  margin-top: 2.4em;
+  padding-top: 0.6em;
+  border-top: 1px solid var(--line);
+}
+
+h2:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+blockquote {
+  border-left: 2px solid var(--accent);
+  color: var(--ink-soft);
+}
+
+.footer {
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}

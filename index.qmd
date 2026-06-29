@@ -1,39 +1,231 @@
 ---
-title: "Kyle Haynes"
-subtitle: "Data science, R, and Australian address matching."
+pagetitle: "Kyle Haynes"
+title-block-banner: false
 format:
   html:
     toc: false
     css: styles.css
 ---
 
-# Welcome
+::: {.hero}
+<span class="kicker">Data analyst · Brisbane, Australia</span>
 
-Hi — this site is a small portfolio of work in R, spatial analysis, and address matching.
+# Kyle Haynes
+
+<span class="role-line">Data Integration team, Queensland Government Statistician's Office (QGSO)</span>
+
+I work on **data linkage** — joining records across data sets that don't
+share a clean key — which pulls in a fairly specific mix of theory: graph
+theory for the connections between records, and string matching for the
+fuzzy, almost-but-not-quite-identical values that connect them.
+
+<ul class="tag-row">
+<li>data linkage</li>
+<li>graph theory</li>
+<li>string matching</li>
+<li>R &amp; data.table</li>
+<li>spatial / addresses</li>
+</ul>
+:::
+
+## What I work on
+
+Most data linkage problems reduce to the same question: do these two records
+describe the same real-world thing? Answering that well means treating
+records and shared values as a **graph** — connected components, not
+pairwise rules — and being deliberate about how **string similarity** is
+measured, since names, addresses, and identifiers are rarely typed the same
+way twice.
+
+- **Data linkage** — matching and deduplicating records across sources with no reliable shared key.
+- **Graph theory** — connected components, clustering, and traversal as tools for resolving messy links.
+- **String matching** — fuzzy and approximate matching for names, addresses, and free text.
+
+## How it connects
+
+The packages below aren't separate side projects — they're components of
+the same linkage problem, which is a fitting thing to show as a graph.
+Drag a node, hover an edge.
+
+```{ojs}
+//| echo: false
+graphData = ({
+  nodes: [
+    { id: "Kyle Haynes", group: "me" },
+    { id: "QGSO · Data Integration", group: "work" },
+    { id: "Data linkage", group: "skill" },
+    { id: "Graph theory", group: "skill" },
+    { id: "String matching", group: "skill" },
+    { id: "gnafr", group: "package" },
+    { id: "fast.string", group: "package" },
+    { id: "graphfast", group: "package" }
+  ],
+  links: [
+    { source: "Kyle Haynes", target: "QGSO · Data Integration" },
+    { source: "Kyle Haynes", target: "Data linkage" },
+    { source: "Kyle Haynes", target: "Graph theory" },
+    { source: "Kyle Haynes", target: "String matching" },
+    { source: "QGSO · Data Integration", target: "Data linkage" },
+    { source: "Data linkage", target: "gnafr" },
+    { source: "Data linkage", target: "graphfast" },
+    { source: "Graph theory", target: "graphfast" },
+    { source: "String matching", target: "gnafr" },
+    { source: "String matching", target: "fast.string" },
+    { source: "gnafr", target: "fast.string" }
+  ]
+})
+```
+
+::: {.graph-wrap}
+```{ojs}
+//| echo: false
+chart = {
+  const height = 380;
+  const accent = "#4a55a6";
+  const ink = "#2a2b2e";
+
+  const radius = (d) =>
+    d.group === "me" ? 15 : d.group === "package" ? 9 : 7;
+
+  const fill = (d) => (d.group === "me" ? accent : ink);
+
+  const links = graphData.links.map((d) => ({ ...d }));
+  const nodes = graphData.nodes.map((d) => ({ ...d }));
+
+  const hub = nodes.find((d) => d.group === "me");
+  hub.fx = width / 2;
+  hub.fy = height / 2;
+
+  const simulation = d3
+    .forceSimulation(nodes)
+    .force(
+      "link",
+      d3.forceLink(links).id((d) => d.id).distance(130).strength(0.45)
+    )
+    .force("charge", d3.forceManyBody().strength(-320))
+    .force("center", d3.forceCenter(width / 2, height / 2))
+    .force("collide", d3.forceCollide(38))
+    .force("x", d3.forceX(width / 2).strength(0.06))
+    .force("y", d3.forceY(height / 2).strength(0.06))
+    .tick(300);
+
+  const svg = d3
+    .create("svg")
+    .attr("viewBox", [0, 0, width, height])
+    .attr("width", "100%")
+    .attr("height", height)
+    .style("max-width", "100%")
+    .style("font", "12px var(--bs-font-sans-serif, sans-serif)");
+
+  const link = svg
+    .append("g")
+    .selectAll("line")
+    .data(links)
+    .join("line")
+    .attr("stroke", "#cfcdc2")
+    .attr("stroke-width", 1.2);
+
+  const node = svg
+    .append("g")
+    .selectAll("circle")
+    .data(nodes)
+    .join("circle")
+    .attr("r", radius)
+    .attr("fill", fill)
+    .attr("stroke", "#faf9f6")
+    .attr("stroke-width", 1.5)
+    .style("cursor", "grab")
+    .call(drag(simulation));
+
+  const label = svg
+    .append("g")
+    .selectAll("text")
+    .data(nodes)
+    .join("text")
+    .text((d) => d.id)
+    .attr("dy", (d) => -radius(d) - 6)
+    .attr("text-anchor", "middle")
+    .attr("fill", "#4b4f56")
+    .style("pointer-events", "none");
+
+  node
+    .on("pointerenter", (event, d) => {
+      link
+        .attr("stroke", (l) =>
+          l.source.id === d.id || l.target.id === d.id ? accent : "#e9e7dd"
+        )
+        .attr("stroke-width", (l) =>
+          l.source.id === d.id || l.target.id === d.id ? 2 : 1.2
+        );
+    })
+    .on("pointerleave", () => {
+      link.attr("stroke", "#cfcdc2").attr("stroke-width", 1.2);
+    });
+
+  simulation.on("tick", () => {
+    link
+      .attr("x1", (d) => d.source.x)
+      .attr("y1", (d) => d.source.y)
+      .attr("x2", (d) => d.target.x)
+      .attr("y2", (d) => d.target.y);
+    node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+    label.attr("x", (d) => d.x).attr("y", (d) => d.y);
+  });
+
+  invalidation.then(() => simulation.stop());
+  return svg.node();
+}
+
+function drag(simulation) {
+  function dragstarted(event, d) {
+    if (!event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+  function dragged(event, d) {
+    d.fx = event.x;
+    d.fy = event.y;
+  }
+  function dragended(event, d) {
+    if (!event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
+  return d3
+    .drag()
+    .on("start", dragstarted)
+    .on("drag", dragged)
+    .on("end", dragended);
+}
+```
+:::
+
+<p class="graph-caption">Force-directed graph (Observable JS + d3-force) — Kyle, his role, and the theory/package
+links between them.</p>
 
 ## Active projects
 
-- [gnafr](https://kylehaynes.github.io/gnafr/) — active package for *fuzzy matching* Australian addresses.
-- [fast.string](https://kylehaynes.github.io/fast.string/) — *fast* string processing utilities and tools.
+::: {.project-grid}
 
-## Explore this site
+::: {.project-card}
+<span class="pkg-name">gnafr</span>
 
-- [About](about.qmd)
-- [GNAFR overview](gnafr.qmd)
-- [Royal Street Names in Brisbane City](2024_04_kings_and_queens.qmd)
-- [Flextables in Quarto](2024_04_flextables_in_quarto.qmd)
-- [Hello world demo](hello-world.qmd)
+R package for *fuzzy matching* Australian addresses against the GNAF.
+[Visit site →](https://kylehaynes.github.io/gnafr/)
+:::
 
-## Notes
+::: {.project-card}
+<span class="pkg-name">fast.string</span>
 
-This site is maintained in Quarto and published to GitHub Pages from the `docs/` folder. The interactive app content has been removed so the site stays focused on published Quarto pages.
+*Fast* string processing utilities used as building blocks for matching
+and cleaning text fields. [Visit site →](https://kylehaynes.github.io/fast.string/)
+:::
 
+::: {.project-card}
+<span class="pkg-name">graphfast</span>
 
+Connected-component grouping for data.table — resolve linkage chains with
+one function call. [Read the post →](2025_06_graphfast.qmd)
+:::
 
-```
-
-asdas 
-
-<details>
-asdas
-</details>
+:::
