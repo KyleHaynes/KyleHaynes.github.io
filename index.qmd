@@ -211,21 +211,20 @@ links between them.</p>
 <span class="pkg-name">gnafr</span>
 
 R package for *fuzzy matching* Australian addresses against GNAF.<br/>
-[Visit site →](https://kylehaynes.github.io/gnafr/)<br/>[Visit repo →](https://github.com/KyleHaynes/gnafr)
+[Visit doco →](https://kylehaynes.github.io/gnafr/)<br/>[Visit repo →](https://github.com/KyleHaynes/gnafr)
 :::
 
 ::: {.project-card}
 <span class="pkg-name">fast.string</span>
 
 *Fast* string processing utilities used as building blocks for matching
-and cleaning text fields. <br/>[Visit site →](https://kylehaynes.github.io/fast.string/)<br/>[Visit repo →](https://github.com/KyleHaynes/fast.string)
+and cleaning text fields. <br/>[Visit doco →](https://kylehaynes.github.io/fast.string/)<br/>[Visit repo →](https://github.com/KyleHaynes/fast.string)
 :::
 
 ::: {.project-card}
 <span class="pkg-name">graphfast</span>
 
-Connected-component grouping for data.table — resolve linkage chains with
-one function call. <br/>[Read the post →](2025_06_graphfast.qmd)<br/>[Visit repo →](https://github.com/KyleHaynes/graphfast)
+Limited, though, fast graphing methods <br/>[Read the post →](2025_06_graphfast.qmd)<br/>[Visit repo →](https://github.com/KyleHaynes/graphfast)
 :::
 
 ::: {.project-card}

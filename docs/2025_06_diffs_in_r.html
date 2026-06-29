@@ -4160,6 +4160,19 @@ vertical-align: -.125em;
 .jsdiff-table td:nth-child(2){background:#f8fff8}
 .jsdiff-table td:nth-child(3){background:#fafafa}
 </style>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This packages uses the <code>jsdiffr</code> package. <a href="https://github.com/KyleHaynes/jsdiffr">Visit repo →</a></p>
+</div>
+</div>
 <p>If you’ve ever standardised a column of addresses — expanding <code>St</code> to <code>Street</code>, fixing a postcode, normalising <code>Ave</code> — you know the hard part isn’t the transformation. It’s <em>reviewing</em> it. A <code>before</code>/<code>after</code> table of 5,000 rows is unreadable; your eye can’t find the one character that changed.</p>
 <p><code>jsdiffr</code> ships two HTML helpers, <strong><code>diff_to_html()</code></strong> and <strong><code>diff_html()</code></strong>, that turn a diff into colour-coded markup: <span class="jsdiff-removed">red strike-through</span> for what was removed, <span class="jsdiff-added">green</span> for what was added. It’s a one-liner, and it works inline in Quarto, R Markdown, or a Shiny app.</p>
 <section id="one-pair-one-line" class="level2">

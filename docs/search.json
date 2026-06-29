@@ -25,14 +25,14 @@
     "href": "index.html#active-projects",
     "title": "Kyle Haynes",
     "section": "Active projects",
-    "text": "Active projects\n\n\ngnafr\nR package for fuzzy matching Australian addresses against the GNAF. Visit site →Visit repo →\n\n\nfast.string\nFast string processing utilities used as building blocks for matching and cleaning text fields. Visit site →Visit repo →\n\n\ngraphfast\nConnected-component grouping for data.table — resolve linkage chains with one function call. Read the post →Visit repo →\n\n\njsdiffr\nDiffs in R!Read the post →Visit repo →"
+    "text": "Active projects\n\n\ngnafr\nR package for fuzzy matching Australian addresses against GNAF. Visit site →Visit repo →\n\n\nfast.string\nFast string processing utilities used as building blocks for matching and cleaning text fields. Visit site →Visit repo →\n\n\ngraphfast\nLimited, though, fast graphing methods Read the post →Visit repo →\n\n\njsdiffr\nDiffs in R!Read the post →Visit repo →"
   },
   {
     "objectID": "2026_06_fast.string.html",
     "href": "2026_06_fast.string.html",
     "title": "Three string functions in fast.string that earn their keep",
     "section": "",
-    "text": "Base R’s string functions are written for correctness and generality, not raw speed. On a 10-row vector that’s invisible. On a few million rows — the kind of data that turns up in record linkage, log parsing, or ETL — the wait gets real.\nfast.string re-implements a handful of the hottest string operations in C++ (PCRE2 for regex, RE2’s zero-copy StringPiece for fixed strings) and runs them in parallel across every core via Intel TBB. The functions are drop-in replacements — same arguments, same results — so adopting them is usually a one-character change.\nHere are three that pull the most weight, with demos and benchmarks you can run yourself.\nlibrary(fast.string)\nlibrary(microbenchmark)"
+    "text": "Note\n\n\n\nThis packages uses the fast.string package. Visit repo →\nBase R’s string functions are written for correctness and generality, not raw speed. On a 10-row vector that’s invisible. On a few million rows — the kind of data that turns up in record linkage, log parsing, or ETL — the wait gets real.\nfast.string re-implements a handful of the hottest string operations in C++ (PCRE2 for regex, RE2’s zero-copy StringPiece for fixed strings) and runs them in parallel across every core via Intel TBB. The functions are drop-in replacements — same arguments, same results — so adopting them is usually a one-character change.\nHere are three that pull the most weight, with demos and benchmarks you can run yourself.\nlibrary(fast.string)\nlibrary(microbenchmark)"
   },
   {
     "objectID": "2026_06_fast.string.html#fgrepl-pattern-matching-without-the-wait",
@@ -67,7 +67,7 @@
     "href": "2025_06_diffs_in_r.html",
     "title": "Spotting address changes at a glance with jsdiffr",
     "section": "",
-    "text": "If you’ve ever standardised a column of addresses — expanding St to Street, fixing a postcode, normalising Ave — you know the hard part isn’t the transformation. It’s reviewing it. A before/after table of 5,000 rows is unreadable; your eye can’t find the one character that changed.\njsdiffr ships two HTML helpers, diff_to_html() and diff_html(), that turn a diff into colour-coded markup: red strike-through for what was removed, green for what was added. It’s a one-liner, and it works inline in Quarto, R Markdown, or a Shiny app."
+    "text": "Note\n\n\n\nThis packages uses the jsdiffr package. Visit repo →\nIf you’ve ever standardised a column of addresses — expanding St to Street, fixing a postcode, normalising Ave — you know the hard part isn’t the transformation. It’s reviewing it. A before/after table of 5,000 rows is unreadable; your eye can’t find the one character that changed.\njsdiffr ships two HTML helpers, diff_to_html() and diff_html(), that turn a diff into colour-coded markup: red strike-through for what was removed, green for what was added. It’s a one-liner, and it works inline in Quarto, R Markdown, or a Shiny app."
   },
   {
     "objectID": "2025_06_diffs_in_r.html#one-pair-one-line",

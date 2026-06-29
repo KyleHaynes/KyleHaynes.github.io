@@ -250,6 +250,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This packages uses the <code>fast.string</code> package. <a href="https://github.com/KyleHaynes/faststring">Visit repo →</a></p>
+</div>
+</div>
 <p>Base R’s string functions are written for correctness and generality, not raw speed. On a 10-row vector that’s invisible. On a few million rows — the kind of data that turns up in record linkage, log parsing, or ETL — the wait gets real.</p>
 <p><code>fast.string</code> re-implements a handful of the hottest string operations in C++ (PCRE2 for regex, RE2’s zero-copy <code>StringPiece</code> for fixed strings) and runs them in parallel across every core via Intel TBB. The functions are <strong>drop-in replacements</strong> — same arguments, same results — so adopting them is usually a one-character change.</p>
 <p>Here are three that pull the most weight, with demos and benchmarks you can run yourself.</p>

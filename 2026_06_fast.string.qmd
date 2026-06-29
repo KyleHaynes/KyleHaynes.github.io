@@ -12,6 +12,11 @@ execute:
   eval: false
 ---
 
+
+::: {.callout-note}
+This packages uses the `fast.string` package. [Visit repo →](https://github.com/KyleHaynes/faststring)
+:::
+
 Base R's string functions are written for correctness and generality, not raw
 speed. On a 10-row vector that's invisible. On a few million rows — the kind of
 data that turns up in record linkage, log parsing, or ETL — the wait gets real.

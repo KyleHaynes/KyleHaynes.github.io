@@ -12,6 +12,10 @@ library(data.table)
 set.seed(1)
 ```
 
+::: {.callout-note}
+This packages uses the `graphfast` package. [Visit repo →](https://github.com/KyleHaynes/graphfast)
+:::
+
 ## The problem
 
 Real-world data is full of duplicates that don't *look* like duplicates. A
